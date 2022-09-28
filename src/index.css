@@ -7,7 +7,6 @@
 
 html {
   font-family: "Poppins", sans-serif;
-  overflow: hidden;
 }
 :root {
   --text-color-bold: hsl(197, 11%, 12%);
@@ -59,4 +58,9 @@ body {
 .button-login:hover {
   color: var(--text-color-normal);
   border: 2px solid var(--text-color-normal);
+}
+
+.react-draggable {
+  display: inline-block;
+  position: absolute;
 }

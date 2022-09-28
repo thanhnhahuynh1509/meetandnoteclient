@@ -1,0 +1,43 @@
+.FormGroup {
+  position: relative;
+  width: 100%;
+  padding: 25px 10px 10px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 9px;
+}
+
+.FormGroup input {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inherit;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--text-color-bold);
+}
+
+.FormGroup label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-color-normal);
+  transition: 0.1s;
+}
+
+.FormGroup input:focus ~ label {
+  top: 10px;
+  transform: translateY(0);
+  color: var(--text-color-light);
+}
+
+.FormGroup input:not(:placeholder-shown) ~ label {
+  top: 10px;
+  transform: translateY(0);
+  color: var(--text-color-light);
+}

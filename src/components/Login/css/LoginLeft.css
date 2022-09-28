@@ -1,0 +1,59 @@
+.LoginLeft {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.LoginLeft-show-left {
+  position: relative;
+  display: inline-block;
+  background-color: #fff;
+  padding: 30px 90px;
+  border-radius: 9px;
+  z-index: 100;
+}
+
+.LoginLeft-title {
+  margin: 30px 0;
+  color: var(--text-color-bold);
+  text-align: center;
+}
+
+.LoginLeft-form {
+  font-family: inherit;
+  color: inherit;
+  width: 300px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.LoginLeft-contain-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.LoginLeft-contain-more-features {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.LoginLeft-contain-more-features .feature {
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-color-light);
+}
+
+.LoginLeft-contain-more-features .feature:hover {
+  color: var(--text-color-normal);
+}

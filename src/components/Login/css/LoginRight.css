@@ -1,0 +1,13 @@
+.LoginRight {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.LoginRight img {
+  position: relative;
+  width: 90%;
+  z-index: 100;
+}

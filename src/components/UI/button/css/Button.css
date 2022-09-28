@@ -1,0 +1,15 @@
+.Button {
+  border: none;
+  background-color: white;
+  color: #333;
+  padding: 8px 30px;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.Button:hover {
+  transform: translateY(-3px);
+}

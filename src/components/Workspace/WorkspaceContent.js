@@ -13,6 +13,14 @@ function WorkspaceContent(props) {
   const additionalSpace = useSelector(selectAdditionalSpace);
   const startContentPos = useSelector(selectStartContent);
 
+  document.addEventListener("contextmenu", (event) => {});
+
+  const handleContextMenu = (event) => {
+    event.preventDefault();
+    // const xPos = event.pageX + "px";
+    // const yPos = event.pageY + "px";
+  };
+
   return (
     <>
       <div
@@ -21,6 +29,7 @@ function WorkspaceContent(props) {
           width: "calc(100% + " + additionalSpace.width + "px)",
           height: "calc(100% + " + additionalSpace.height + "px)",
         }}
+        onContextMenu={handleContextMenu}
         ref={contentRef}
       >
         {content.map((c) => (

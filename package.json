@@ -13,6 +13,7 @@
     "react-draggable": "^4.4.5",
     "react-jss": "^10.9.2",
     "react-redux": "^8.0.2",
+    "react-resizable": "^3.0.4",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
     "sockjs-client": "^1.6.1",

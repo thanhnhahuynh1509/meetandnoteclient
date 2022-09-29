@@ -64,3 +64,8 @@ body {
   display: inline-block;
   position: absolute;
 }
+
+.react-draggable-dragging {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  cursor: grabbing;
+}

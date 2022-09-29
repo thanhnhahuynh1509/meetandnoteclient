@@ -9,6 +9,7 @@ function DraggableComponent(props) {
   const dispatch = useDispatch();
   const { parentRef, content } = props;
 
+  const [disable, setDisable] = useState(false);
   const [position, setPosition] = useState({ ...props.position });
 
   const parentPos = parentRef.current.getBoundingClientRect();
@@ -42,9 +43,10 @@ function DraggableComponent(props) {
       position={{ x: position.x, y: position.y }}
       bounds={"parent"}
       onStop={handleOnStop}
+      disabled={disable}
     >
       <div>
-        <Note />
+        <Note setDisable={setDisable} content={content} />
       </div>
     </Draggable>
   );

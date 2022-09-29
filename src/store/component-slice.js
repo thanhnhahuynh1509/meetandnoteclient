@@ -8,7 +8,7 @@ const componentSlice = createSlice({
       state.data = [...state.data, action.payload];
     },
     removeComponent(state, action) {
-      state.data = state.data.filter((c) => c.id !== action.payload.id);
+      state.data = [...state.data.filter((c) => c.id !== action.payload.id)];
     },
     updateComponent(state, action) {
       state.data = state.data.map((c) => {

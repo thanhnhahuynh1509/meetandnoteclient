@@ -38,7 +38,7 @@ function WorkspaceContent(props) {
             parentRef={contentRef}
             content={c}
             key={c.id}
-          ></DraggableComponent>
+          />
         ))}
       </div>
     </>

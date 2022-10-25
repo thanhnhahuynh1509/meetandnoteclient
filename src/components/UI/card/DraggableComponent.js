@@ -4,6 +4,9 @@ import { useDispatch } from "react-redux";
 import { addSpace } from "../../../store/screen-additional-space";
 import { useState } from "react";
 import { updateComponent } from "../../../store/component-slice";
+import Link from "./Link";
+
+const spaceAddition = 200;
 
 function DraggableComponent(props) {
   const dispatch = useDispatch();
@@ -18,14 +21,20 @@ function DraggableComponent(props) {
   const parentBoundY = parentPos.height;
 
   const handleBoundX = () => {
-    if (position.x + 100 >= Math.round(parentBoundX)) {
-      dispatch(addSpace({ width: 100, height: 0 }));
+    if (
+      position.x + spaceAddition >=
+      Math.round(parentBoundX - spaceAddition)
+    ) {
+      dispatch(addSpace({ width: spaceAddition, height: 0 }));
     }
   };
 
   const handleBoundY = () => {
-    if (position.y + 100 >= Math.round(parentBoundY)) {
-      dispatch(addSpace({ width: 0, height: 100 }));
+    if (
+      position.y + spaceAddition >=
+      Math.round(parentBoundY - spaceAddition / 2)
+    ) {
+      dispatch(addSpace({ width: 0, height: spaceAddition }));
     }
   };
 
@@ -38,6 +47,8 @@ function DraggableComponent(props) {
   handleBoundX();
   handleBoundY();
 
+  console.log(content);
+
   return (
     <Draggable
       position={{ x: position.x, y: position.y }}
@@ -46,7 +57,12 @@ function DraggableComponent(props) {
       disabled={disable}
     >
       <div>
-        <Note setDisable={setDisable} content={content} />
+        {content.type === "NOTE" && (
+          <Note setDisable={setDisable} content={content} />
+        )}
+        {content.type === "LINK" && (
+          <Link setDisable={setDisable} content={content} />
+        )}
       </div>
     </Draggable>
   );

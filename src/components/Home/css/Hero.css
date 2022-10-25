@@ -1,0 +1,32 @@
+.hero_content {
+  display: grid;
+  grid-template-columns: 500px 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.hero_content_left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero_content_title {
+  font-size: 48px;
+  color: rgb(80, 79, 79);
+  letter-spacing: 1.4px;
+}
+
+.hero_content_desc {
+  font-size: 16px;
+  color: rgb(104, 104, 104);
+}
+
+.hero_content_img {
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.hero_content_img img {
+  border-radius: 9px;
+}

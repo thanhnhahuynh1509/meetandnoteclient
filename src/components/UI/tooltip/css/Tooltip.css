@@ -1,0 +1,38 @@
+.tooltip-parent {
+  position: relative;
+}
+
+.tooltip-parent:hover .Tooltip {
+  opacity: 1;
+}
+
+.Tooltip {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  bottom: 0;
+  right: 0;
+  transform: translateY(120%);
+  font-size: 14px;
+  min-width: 100px;
+  max-width: 200px;
+  background-color: #333 !important;
+  color: rgb(238, 249, 255) !important;
+  padding: 10px 5px;
+  border-radius: 2px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: 0.25s;
+  z-index: 2001;
+}
+
+.Tooltip::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  right: 10px;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border-radius: 2px;
+  background-color: inherit;
+}

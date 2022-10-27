@@ -2,15 +2,17 @@ import Draggable from "react-draggable";
 import Note from "./Note";
 import { useDispatch } from "react-redux";
 import { addSpace } from "../../../store/screen-additional-space";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateComponent } from "../../../store/component-slice";
 import Link from "./Link";
+import { send } from "../../../utils/sockjs/client-sockjs";
 
 const spaceAddition = 200;
 
 function DraggableComponent(props) {
   const dispatch = useDispatch();
   const { parentRef, content } = props;
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [disable, setDisable] = useState(false);
   const [position, setPosition] = useState({ ...props.position });
@@ -19,6 +21,10 @@ function DraggableComponent(props) {
 
   const parentBoundX = parentPos.width;
   const parentBoundY = parentPos.height;
+
+  useEffect(() => {
+    setPosition({ x: content.posX, y: content.posY });
+  }, [content]);
 
   const handleBoundX = () => {
     if (
@@ -42,12 +48,14 @@ function DraggableComponent(props) {
     setPosition({ x: data.x, y: data.y });
     const component = { ...content, posX: data.x, posY: data.y };
     dispatch(updateComponent(component));
+
+    send(user.roomLink, component);
   };
 
   handleBoundX();
   handleBoundY();
 
-  console.log(content);
+  // console.log(content);
 
   return (
     <Draggable
@@ -63,6 +71,9 @@ function DraggableComponent(props) {
         {content.type === "LINK" && (
           <Link setDisable={setDisable} content={content} />
         )}
+        {content.type === "TODO" && <></>}
+        {content.type === "COMMENT" && <></>}
+        {content.type === "ROOM" && <></>}
       </div>
     </Draggable>
   );

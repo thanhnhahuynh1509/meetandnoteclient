@@ -11,9 +11,11 @@ const componentSlice = createSlice({
       state.data = [...state.data.filter((c) => c.id !== action.payload.id)];
     },
     updateComponent(state, action) {
+      const component = state.data.find((c) => c.id === action.payload.id);
+      if (!component) state.data = [...state.data, action.payload];
       state.data = state.data.map((c) => {
         if (c.id === action.payload.id) {
-          c = { ...action.payload };
+          return action.payload;
         }
         return c;
       });

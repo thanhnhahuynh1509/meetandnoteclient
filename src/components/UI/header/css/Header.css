@@ -1,0 +1,106 @@
+.Header {
+  position: fixed;
+  background-color: transparent;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  z-index: 2000;
+  transform: translateY(calc(-100% + 25px));
+  transition: 0.25s;
+}
+
+.Header.show {
+  background-color: #fff;
+  transform: translateY(0);
+}
+
+.Header-contain-features {
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.show .Header-contain-features {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.Header-contain-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.Header-button {
+  font-size: 18px;
+  color: rgb(160, 160, 160);
+}
+
+.Header-contain-toggle {
+  height: 20px;
+  position: relative;
+}
+
+.Header-button-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.Header-navigate-items {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.Header-navigate-item {
+  position: relative;
+  font-size: 13px;
+  color: #333;
+  font-weight: bold;
+}
+
+.Header-navigate-item:last-child {
+  color: rgb(160, 160, 160);
+}
+
+.Header-navigate-item:not(:last-child) {
+  cursor: pointer;
+}
+
+.Header-navigate-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 60%;
+  top: 50%;
+  right: -10px;
+  transform: rotate(15deg) translateY(-50%);
+  background-color: #ccc;
+}
+
+.Header-contain-content {
+  display: none;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.show .Header-contain-content {
+  display: block;
+}
+
+.Header-content-title {
+  text-align: center;
+}
+
+.Header-content-features {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}

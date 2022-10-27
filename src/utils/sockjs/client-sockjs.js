@@ -1,14 +1,15 @@
 import { Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
-const sock = new SockJS("//localhost:8080:/ws");
-const stompClient = Stomp.over(sock);
+let stompClient = null;
 
 export const connect = (roomId, handleProcess) => {
-  stompClient.connect({}, (frame) => {
+  const sock = new SockJS("//localhost:8080/ws");
+  stompClient = Stomp.over(sock);
+  stompClient.connect({}, () => {
     stompClient.subscribe("/topic/" + roomId, (message) => {
       const component = JSON.parse(message.body);
-      console.log(component);
+      handleProcess(component);
     });
   });
 };

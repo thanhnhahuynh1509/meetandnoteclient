@@ -39,7 +39,25 @@ img {
 }
 
 .bg-black {
-  background-color: #000;
+  background-color: #333 !important;
+  color: #fff !important;
+}
+
+.bg-black-blue {
+  background-color: rgb(35, 58, 65) !important;
+  color: rgb(238, 249, 255) !important;
+}
+
+.color-blue {
+  color: #1a77f2;
+}
+
+.color-red {
+  color: #f47373;
+}
+
+.color-black {
+  color: #333;
 }
 
 .form-group-checkbox {
@@ -51,6 +69,22 @@ img {
   font-size: 12px;
   color: var(--text-color-bold);
   font-weight: 500;
+}
+
+.button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.button:hover {
+  opacity: 0.9;
 }
 
 .button-login {
@@ -68,6 +102,33 @@ img {
 .button-login:hover {
   color: var(--text-color-normal);
   border: 2px solid var(--text-color-normal);
+}
+
+.button-transparent {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: #333;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.button-transparent:hover {
+  color: #444;
+}
+
+.button-circle {
+  display: inline-flex;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.25s;
 }
 
 .react-draggable {

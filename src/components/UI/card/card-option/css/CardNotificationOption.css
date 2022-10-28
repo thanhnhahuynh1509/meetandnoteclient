@@ -1,0 +1,39 @@
+.CardNotification {
+  min-width: 400px;
+}
+
+.CardNotification .option-bar-header {
+  border-bottom: 0.5px solid #ccc;
+}
+
+.option-bar-notification {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+}
+
+.notification-bar-header-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification-content-img img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.notification-content-text {
+  text-align: start;
+  font-size: 14px;
+  color: #333;
+}
+
+.notification-bar-header-time {
+  font-size: 14px;
+  color: #666;
+}

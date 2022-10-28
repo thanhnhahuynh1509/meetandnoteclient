@@ -21,10 +21,6 @@ function WorkspaceContent(props) {
     // const yPos = event.pageY + "px";
   };
 
-  for (let a of content) {
-    console.log(a);
-  }
-
   return (
     <>
       <div

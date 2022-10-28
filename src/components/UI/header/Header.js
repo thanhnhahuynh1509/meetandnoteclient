@@ -1,13 +1,25 @@
 import { useState } from "react";
 import Button from "../button/Button";
+import CardUserOption from "../card/card-option/CardUserOption";
 import Tooltip from "../tooltip/Tooltip";
 import "./css/Header.css";
+import CardNotification from "../card/card-option/CardNotificationOption";
 
 function Header(props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [openOptionUser, setOpenOptionUser] = useState(false);
+  const [openOptionNotification, setOpenOptionNotification] = useState(false);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
+  };
+
+  const setOpenUser = (value) => {
+    setOpenOptionUser(value);
+  };
+
+  const setOpenNotification = (value) => {
+    setOpenOptionNotification(value);
   };
 
   return (
@@ -26,12 +38,32 @@ function Header(props) {
               <i className="fa-solid fa-magnifying-glass"></i>
               <Tooltip>Tìm kiếm</Tooltip>
             </button>
-            <button className="Header-button button-transparent tooltip-parent">
+            <button
+              className="Header-button button-transparent tooltip-parent"
+              onClick={setOpenNotification}
+            >
               <i className="fa-solid fa-bell"></i>
+              <CardNotification
+                isOpen={openOptionNotification}
+                onClose={(e) => {
+                  e.stopPropagation();
+                  setOpenOptionNotification(false);
+                }}
+              />
               <Tooltip>Thông báo</Tooltip>
             </button>
-            <button className="Header-button button-transparent tooltip-parent">
+            <button
+              className="Header-button button-transparent tooltip-parent"
+              onClick={() => setOpenUser(true)}
+            >
               <i className="fa-solid fa-gear"></i>
+              <CardUserOption
+                isOpen={openOptionUser}
+                onClose={(e) => {
+                  e.stopPropagation();
+                  setOpenUser(false);
+                }}
+              />
               <Tooltip>Cài đặt</Tooltip>
             </button>
           </div>

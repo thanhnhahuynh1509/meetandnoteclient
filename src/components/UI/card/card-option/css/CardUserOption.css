@@ -1,0 +1,47 @@
+.option-bar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  background-color: #fff;
+  padding: 20px;
+}
+
+.user-bar-name {
+  text-align: start;
+  color: #333;
+}
+
+.user-bar-email {
+  color: #ccc;
+  text-align: start;
+  font-size: 12px;
+}
+
+.user-content-contain-features {
+  margin-top: 20px;
+  text-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+}
+
+.user-content-contain-features button {
+  color: var(--primary-color);
+}
+
+.user-content-contain-features button:hover {
+  opacity: 0.8;
+  color: var(--primary-color);
+}
+
+.user-bar-header-avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.user-bar-header-avatar button {
+  color: #666;
+}

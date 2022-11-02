@@ -5,7 +5,10 @@ function CardOption(props) {
   return (
     <>
       {isOpen && <div className="backdrop" onClick={onClose}></div>}
-      <div className={props.className + " CardOption " + `${isOpen && "show"}`}>
+      <div
+        className={props.className + " CardOption " + `${isOpen && "show"}`}
+        style={{ minWidth: props.width }}
+      >
         {props.children}
       </div>
     </>

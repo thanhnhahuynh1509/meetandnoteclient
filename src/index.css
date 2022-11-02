@@ -31,11 +31,11 @@ img {
 }
 
 .bg-blue {
-  background-color: #1a77f2;
+  background-color: #1a77f2 !important;
 }
 
 .bg-red {
-  background-color: #f47373;
+  background-color: #f47373 !important;
 }
 
 .bg-black {

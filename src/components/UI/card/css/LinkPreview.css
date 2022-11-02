@@ -1,0 +1,50 @@
+.LinkPreview {
+  width: 300px;
+}
+
+.LinkPreview img {
+  pointer-events: none;
+}
+
+.LinkPreview-main-image {
+  width: 100%;
+}
+.LinkPreview-link-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.link-container-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.link-container-content {
+  /* display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.LinkPreview-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.LinkPreview-desc {
+  font-size: 14px;
+  color: #666;
+}

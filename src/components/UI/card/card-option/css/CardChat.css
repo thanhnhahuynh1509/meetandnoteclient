@@ -1,0 +1,70 @@
+.CardChat {
+  min-width: 400px;
+  overflow: hidden;
+}
+
+.CardChat .option-bar-header {
+  border-bottom: 0.5px solid #ccc;
+}
+
+.option-bar-chats {
+  height: 300px;
+  overflow-y: auto;
+}
+
+.option-bar-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #eee;
+  padding: 20px;
+}
+
+.chat-bar-header-content {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex: 1;
+}
+
+.chat-content-text {
+  text-align: start;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.chat-bar-header-time {
+  font-size: 12px;
+  color: #666;
+  text-align: start;
+}
+
+.option-bar-form-contains {
+  display: flex;
+}
+
+.option-bar-form-contains textarea {
+  font-family: inherit;
+  font-size: 14px;
+  border: none;
+  outline: var(--primary-color);
+  padding: 10px;
+  resize: none;
+  flex: 1;
+}
+
+.option-bar-form-contains button {
+  font-size: 18px;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.option-bar-form-contains button:hover {
+  color: #fff;
+  opacity: 0.7;
+}

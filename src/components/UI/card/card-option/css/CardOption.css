@@ -30,3 +30,17 @@
   background-color: rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
+
+.option-bar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  background-color: #fff;
+  padding: 20px;
+}
+
+.CardOption img {
+  object-fit: cover;
+  background-color: #fff;
+}

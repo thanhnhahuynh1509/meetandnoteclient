@@ -1,19 +1,28 @@
 import "./css/card-text.css";
 import "./css/card-link.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { removeComponent } from "../../../store/component-slice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeComponent,
+  selectCurrentComponent,
+  setCurrentComponent,
+} from "../../../store/component-slice";
 import { isValidUrl } from "./../../../utils/validate";
+import axios from "axios";
+import { API_URL, getConfig } from "../../../api/common-api";
+import LinkPreview from "./LinkPreview";
 
 function Link(props) {
   const dispatch = useDispatch();
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState("");
   const [renderUrl, setRenderUrl] = useState(false);
+  const [link, setLink] = useState(null);
 
-  const handleFocus = () => {
+  const handleFocus = async () => {
     props.setDisable(true);
     setIsFocus(true);
+    dispatch(setCurrentComponent(props.content));
   };
 
   const handleBlur = () => {
@@ -21,7 +30,7 @@ function Link(props) {
     setIsFocus(false);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = async (e) => {
     const key = e.key;
     if (key === "Backspace") {
       if (!value) {
@@ -34,6 +43,12 @@ function Link(props) {
         setRenderUrl(true);
         props.setDisable(false);
         setIsFocus(false);
+
+        const link = await (
+          await axios.get(API_URL + "/api/link?url=" + value, getConfig())
+        ).data;
+        console.log(link);
+        setLink(link);
       }
     }
   };
@@ -44,7 +59,10 @@ function Link(props) {
 
   return (
     <>
-      <div className={`contain-card Link ${isFocus && `card-text-focus`}`}>
+      <div
+        className={`contain-card Link ${isFocus && `card-text-focus`}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         {!renderUrl && (
           <>
             <i className="fa-solid fa-link"></i>
@@ -61,18 +79,7 @@ function Link(props) {
           </>
         )}
 
-        {renderUrl && (
-          <>
-            <iframe
-              width="300"
-              height="200"
-              src={`//${value
-                .replace("http://", "")
-                .replace("https://", "")
-                .replace("watch?v=", "embed/")}`}
-            ></iframe>
-          </>
-        )}
+        {renderUrl && <LinkPreview link={link} />}
       </div>
     </>
   );

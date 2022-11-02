@@ -1,0 +1,24 @@
+.UserRound img {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.UserRound {
+  position: relative;
+}
+
+.UserRound-status {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  bottom: 4px;
+  right: 0px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #29d929;
+  z-index: 10;
+}

@@ -5,6 +5,7 @@
   justify-content: center;
   gap: 4px;
   border-radius: 9px;
+  min-width: 50px;
 }
 
 .ToolItemCard span {

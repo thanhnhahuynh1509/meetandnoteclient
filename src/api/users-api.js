@@ -11,3 +11,21 @@ export const getUserByToken = async (token) => {
 
   return response.data;
 };
+
+export const updateUserImage = async (id, data) => {
+  const response = await axios.put(
+    API_URL + USER + "/" + id + "/update-image",
+    data,
+    getConfig()
+  );
+  return response.data;
+};
+
+export const updateUserInfo = async (id, data) => {
+  const response = await axios.put(
+    API_URL + USER + "/" + id,
+    data,
+    getConfig()
+  );
+  return response.data;
+};

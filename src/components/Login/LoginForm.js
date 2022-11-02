@@ -8,6 +8,7 @@ import { signIn } from "../../api/sign-in-up-api";
 import { useDispatch } from "react-redux";
 import { updateModal } from "../../store/modal-slice";
 import { getUserByToken } from "./../../api/users-api";
+import { updateUser } from "../../store/user-slice";
 
 function LoginForm(props) {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function LoginForm(props) {
       localStorage.setItem("jwt-token", token);
       const userResponse = await getUserByToken(token);
       localStorage.setItem("user", JSON.stringify(userResponse));
+      dispatch(updateUser(userResponse));
       navigate(`/${userResponse.roomLink}`, { replace: true });
     } catch (exception) {
       console.log(exception);

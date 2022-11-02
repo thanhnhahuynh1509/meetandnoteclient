@@ -17,3 +17,7 @@ export const connect = (roomId, handleProcess) => {
 export const send = (roomId, message) => {
   stompClient.send("/app/" + roomId, {}, JSON.stringify(message));
 };
+
+export const disconnect = () => {
+  stompClient.disconnect();
+};

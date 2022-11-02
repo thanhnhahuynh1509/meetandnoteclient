@@ -4,8 +4,17 @@ import LoginForm from "./components/Login/LoginForm";
 import RegisterForm from "./components/Register/RegisterForm";
 import Modal from "./components/UI/modal/Modal";
 import Workspace from "./components/Workspace/Workspace";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { updateUser } from "./store/user-slice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(updateUser(JSON.parse(localStorage.getItem("user"))));
+  }, []);
+
   return (
     <>
       <Routes>

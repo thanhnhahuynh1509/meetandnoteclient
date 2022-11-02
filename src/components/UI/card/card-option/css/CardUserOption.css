@@ -1,12 +1,3 @@
-.option-bar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 50px;
-  background-color: #fff;
-  padding: 20px;
-}
-
 .user-bar-name {
   text-align: start;
   color: #333;
@@ -16,6 +7,10 @@
   color: #ccc;
   text-align: start;
   font-size: 12px;
+}
+
+.user-bar-header-content {
+  flex: 1;
 }
 
 .user-content-contain-features {
@@ -34,6 +29,14 @@
 .user-content-contain-features button:hover {
   opacity: 0.8;
   color: var(--primary-color);
+}
+
+.user-bar-header-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .user-bar-header-avatar img {

@@ -1,0 +1,20 @@
+.Todo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.Todo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.Todo .card-text {
+  transition: 0.25s;
+}
+
+.Todo .card-text.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}

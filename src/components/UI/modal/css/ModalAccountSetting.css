@@ -1,0 +1,59 @@
+.ModalAccountSetting .ModalWorkspace-content {
+  padding: 30px;
+}
+
+.ModalAccountSetting-container > .title {
+  font-size: 24px;
+  color: #333;
+  letter-spacing: 1.1px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.ModalAccountSetting-container > .description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.ModalAccountSetting-container .contain-form {
+  margin: 30px 0px;
+}
+
+.ModalAccountSetting-container .contain-form .title {
+  font-size: 14px;
+  color: #222;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-align: start;
+}
+
+.contain-form .form-button {
+  display: flex;
+  gap: 10px;
+}
+
+.ModalAccountSetting-container .contain-form input {
+  border: 1px solid #ccc;
+  padding: 10px 10px;
+  outline: none;
+  border-radius: 4px;
+}
+
+.ModalAccountSetting-container .contain-form .button {
+  font-family: inherit;
+  color: #fff;
+}
+
+.ModalAccountSetting .contain-form-group {
+  display: flex;
+  gap: 20px;
+}
+
+.ModalAccountSetting-container .button-submit {
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 18px;
+  width: 100%;
+}

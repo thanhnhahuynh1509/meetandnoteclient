@@ -52,7 +52,7 @@ function ToolbarItem(props) {
   return (
     <>
       <li
-        className="toolbar-item"
+        className={`toolbar-item ${props.active && 'active'}`}
         draggable={props.isDrag ?? true}
         onDragEnd={handleDragEnd}
         onClick={handleClick}
@@ -62,6 +62,10 @@ function ToolbarItem(props) {
       <input type="file" style={{ display: "none" }} ref={fileHiddenRef} />
     </>
   );
+}
+
+ToolbarItem.defaultProps = {
+  active: true
 }
 
 export default ToolbarItem;

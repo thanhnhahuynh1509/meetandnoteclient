@@ -14,6 +14,7 @@ import Room from "./Room";
 import { updateRoomPosition } from "../../../api/room-api";
 import { updateComponentPosition } from "../../../api/component-api";
 
+
 const spaceAddition = 200;
 
 function DraggableComponent(props) {

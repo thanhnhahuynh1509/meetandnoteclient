@@ -6,9 +6,9 @@ import {
   updateStartContent,
 } from "../../store/screen-additional-space";
 import { useEffect, useRef } from "react";
-import { selectIsOpenAttributes } from "../../store/utils-slice";
 import { selectCurrentComponent } from "../../store/component-slice";
-import ToolbarAdditionalFeature from "./ToolbarAdditionalFeature";
+import ToolbarAdditionalColor from "./ToolbarAdditionalColor";
+import ToolbarAdditionalTrash from './ToolbarAdditionalTrash';
 
 function WorkspaceToolbar(props) {
   const dispatch = useDispatch();
@@ -63,12 +63,33 @@ function WorkspaceToolbar(props) {
                 title={"Upload"}
                 type={"FILE"}
               />
+
+
+              {/* <div className="mt-auto contain-trash-feature">
+              
+                <ToolbarItem
+                  isDrag={false}
+                  icon={"fa-solid fa-trash"}
+                  title={"Trash"}
+                  type={"TRASH"}
+                  active={false}
+                />
+              
+                <CardTrash isOpen={true}/>
+              </div> */}
             </>
           )}
 
           {currentComponent && (
             <>
-              <ToolbarAdditionalFeature
+             
+            <ToolbarAdditionalColor
+                icon={"fa-solid fa-droplet"}
+                title={"Color Top"}
+                type={"COLOR_TOP"}
+              />
+              <div className="mt-auto"></div>
+              <ToolbarAdditionalTrash
                 icon={"fa-solid fa-trash"}
                 title={"Trash"}
                 type={"TRASH"}

@@ -11,13 +11,32 @@ import { isValidUrl } from "./../../../utils/validate";
 import axios from "axios";
 import { API_URL, getConfig } from "../../../api/common-api";
 import LinkPreview from "./LinkPreview";
+import { saveAttribbute } from "../../../api/attribute-api";
+import { useEffect } from "react";
 
 function Link(props) {
   const dispatch = useDispatch();
   const [isFocus, setIsFocus] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(props.content.attribute.content);
   const [renderUrl, setRenderUrl] = useState(false);
   const [link, setLink] = useState(null);
+
+  useEffect(() => {
+    const init = async () => {
+      if (value && isValidUrl(value)) {
+        setRenderUrl(true);
+        props.setDisable(false);
+        setIsFocus(false);
+    
+        const link = await (
+          await axios.get(API_URL + "/api/link?url=" + value, getConfig())
+        ).data;
+        setLink(link);
+        }
+    }
+
+    init();
+  }, []);
 
   const handleFocus = async () => {
     props.setDisable(true);
@@ -25,9 +44,31 @@ function Link(props) {
     dispatch(setCurrentComponent(props.content));
   };
 
+  const saveAndRender = async () => {
+    const attribute = {
+      ...props.content.attribute,
+      content: value,
+      component: {id: props.content.id}
+    }
+
+    saveAttribbute(attribute);
+
+    setRenderUrl(true);
+    props.setDisable(false);
+    setIsFocus(false);
+
+    const link = await (
+      await axios.get(API_URL + "/api/link?url=" + value, getConfig())
+    ).data;
+    setLink(link);
+  }
+
   const handleBlur = () => {
     props.setDisable(false);
     setIsFocus(false);
+    if (value && isValidUrl(value)) {
+      saveAndRender();
+    }
   };
 
   const handleKeyDown = async (e) => {
@@ -40,15 +81,7 @@ function Link(props) {
 
     if (key === "Enter") {
       if (value && isValidUrl(value)) {
-        setRenderUrl(true);
-        props.setDisable(false);
-        setIsFocus(false);
-
-        const link = await (
-          await axios.get(API_URL + "/api/link?url=" + value, getConfig())
-        ).data;
-        console.log(link);
-        setLink(link);
+        saveAndRender();
       }
     }
   };

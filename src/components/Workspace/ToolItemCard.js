@@ -4,7 +4,7 @@ function ToolItemCard(props) {
   return (
     <>
       <div className="ToolItemCard">
-        <i className={props.icon + " toolbar-item-icon"}></i>
+        <i style={props.style} className={props.icon + " toolbar-item-icon"}></i>
         <span>{props.title}</span>
       </div>
     </>

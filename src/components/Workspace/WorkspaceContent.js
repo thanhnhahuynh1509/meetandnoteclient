@@ -27,6 +27,8 @@ function WorkspaceContent(props) {
       const responseOfRooms = await getChildrenRoomByLink(roomId);
       const responseOfComponents = await getComponentByLinkNotTrash(roomId);
       dispatch(initComopent([...responseOfComponents, ...responseOfRooms]));
+
+
     };
 
     init();
@@ -51,13 +53,13 @@ function WorkspaceContent(props) {
         onClick={() => dispatch(setCurrentComponent(null))}
         ref={contentRef}
       >
-        {components.map((c, index) => {
+        {components.map((c) => {
           return (
             <DraggableComponent
               position={{ x: c.posX - startContentPos, y: c.posY }}
               parentRef={contentRef}
               content={c}
-              key={index}
+              key={c.id + c.type}
             />
           );
         })}

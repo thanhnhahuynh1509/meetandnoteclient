@@ -6,7 +6,6 @@
   background-color: #eee;
   height: 100vh;
   width: 100px;
-  overflow-y: auto;
   z-index: 100;
   box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.2);
 }
@@ -18,7 +17,7 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
-
+  height: 100%;
   gap: 20px;
 }
 
@@ -27,6 +26,14 @@
   transition: 0.3s;
 }
 
-.toolbar-item:hover {
+.toolbar-item.active:hover {
   transform: translateX(10px);
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.contain-trash-feature {
+  position: relative;
 }

@@ -15,7 +15,10 @@
 
 .ToolItemCard .toolbar-item-icon {
   color: var(--text-color-normal);
-  padding: 5px 10px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;justify-content: center;
   background-color: #fff;
   border-radius: 3px;
 }

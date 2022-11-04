@@ -21,7 +21,7 @@ function LinkPreview(props) {
           )}
           {link.videoURL && (
             <iframe
-              style={{ width: "100%", border: "none", outline: "none" }}
+              style={{ width: "100%", border: "none", outline: "none", borderRadius: "4px" }}
               src={link.videoURL}
             ></iframe>
           )}

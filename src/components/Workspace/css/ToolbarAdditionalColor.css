@@ -1,0 +1,11 @@
+.ToolbarAdditionalColor .color-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ToolbarAdditionalColor {
+    cursor: pointer;
+}

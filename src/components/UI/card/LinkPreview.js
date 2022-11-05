@@ -21,7 +21,12 @@ function LinkPreview(props) {
           )}
           {link.videoURL && (
             <iframe
-              style={{ width: "100%", border: "none", outline: "none", borderRadius: "4px" }}
+              style={{
+                width: "100%",
+                border: "none",
+                outline: "none",
+                borderRadius: "4px",
+              }}
               src={link.videoURL}
             ></iframe>
           )}
@@ -41,7 +46,9 @@ function LinkPreview(props) {
             className="LinkPreview-title"
             onClick={() => openLocation(link.url)}
           >
-            <p>{link.title}</p>
+            <p style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+              {link.title}
+            </p>
           </div>
           <div className="LinkPreview-desc">{link.description}</div>
         </div>

@@ -75,3 +75,11 @@ export const deleteComponent = async (data) => {
   );
   return response.data;
 };
+
+export const getLastIDComponent = async (data) => {
+  const response = await axios.get(
+    API_URL + COMPONENT + "/last-id",
+    getConfig()
+  );
+  return response.data;
+};

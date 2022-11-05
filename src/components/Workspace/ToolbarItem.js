@@ -11,8 +11,16 @@ import { v4 } from "uuid";
 import { send } from "../../utils/sockjs/client-sockjs";
 import { selectCurrentRoom } from "../../store/room-slice";
 import { saveRoom } from "../../api/room-api";
-import { saveComponent } from "../../api/component-api";
+import { getLastIDComponent, saveComponent } from "../../api/component-api";
+import { getLastIDRoom } from "../../api/room-api";
 import { useRef } from "react";
+import { useParams } from "react-router-dom";
+import {
+  selectLastIDRoom,
+  selectLastIDComponent,
+  updateLastComponentID,
+  updateLastRoomID,
+} from "../../store/utils-slice";
 
 function ToolbarItem(props) {
   const dispatch = useDispatch();
@@ -20,6 +28,9 @@ function ToolbarItem(props) {
   const startContentPos = useSelector(selectStartContent);
   const currentRoom = useSelector(selectCurrentRoom);
   const fileHiddenRef = useRef(null);
+  const { roomId } = useParams();
+  // const lastIDRoom = useSelector(selectLastIDRoom);
+  // const lastIDComponent = useSelector(selectLastIDComponent);
 
   const handleDragEnd = async (e) => {
     console.log("handle");
@@ -34,12 +45,21 @@ function ToolbarItem(props) {
     if (component.type === "ROOM") {
       const response = await saveRoom(component);
       dispatch(updateComponent(response));
-      send(user.roomLink, response);
+      send(roomId, response);
+
+      // dispatch(updateLastRoomID(lastIDRoom + 1));
     } else {
+      component.attribute = {
+        content: "",
+        color: "#ffffff",
+        title: "",
+      };
+
       const response = await saveComponent(component);
-      console.log(response);
       dispatch(updateComponent(response));
-      send(user.roomLink, response);
+      send(roomId, response);
+
+      // dispatch(updateLastComponentID(lastIDComponent + 1));
     }
   };
 
@@ -52,7 +72,7 @@ function ToolbarItem(props) {
   return (
     <>
       <li
-        className={`toolbar-item ${props.active && 'active'}`}
+        className={`toolbar-item ${props.active && "active"}`}
         draggable={props.isDrag ?? true}
         onDragEnd={handleDragEnd}
         onClick={handleClick}
@@ -65,7 +85,7 @@ function ToolbarItem(props) {
 }
 
 ToolbarItem.defaultProps = {
-  active: true
-}
+  active: true,
+};
 
 export default ToolbarItem;

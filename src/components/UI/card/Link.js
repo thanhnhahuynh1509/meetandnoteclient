@@ -13,6 +13,7 @@ import { API_URL, getConfig } from "../../../api/common-api";
 import LinkPreview from "./LinkPreview";
 import { saveAttribbute } from "../../../api/attribute-api";
 import { useEffect } from "react";
+import { deleteComponent } from "../../../api/component-api";
 
 function Link(props) {
   const dispatch = useDispatch();
@@ -27,13 +28,13 @@ function Link(props) {
         setRenderUrl(true);
         props.setDisable(false);
         setIsFocus(false);
-    
+
         const link = await (
           await axios.get(API_URL + "/api/link?url=" + value, getConfig())
         ).data;
         setLink(link);
-        }
-    }
+      }
+    };
 
     init();
   }, []);
@@ -48,8 +49,8 @@ function Link(props) {
     const attribute = {
       ...props.content.attribute,
       content: value,
-      component: {id: props.content.id}
-    }
+      component: { id: props.content.id },
+    };
 
     saveAttribbute(attribute);
 
@@ -61,7 +62,7 @@ function Link(props) {
       await axios.get(API_URL + "/api/link?url=" + value, getConfig())
     ).data;
     setLink(link);
-  }
+  };
 
   const handleBlur = () => {
     props.setDisable(false);
@@ -76,6 +77,7 @@ function Link(props) {
     if (key === "Backspace") {
       if (!value) {
         dispatch(removeComponent(props.content));
+        deleteComponent(props.content);
       }
     }
 

@@ -2,28 +2,30 @@ import { API_URL } from "../../../api/common-api";
 import pdf from "../../../assets/image/pdf.png";
 import "./css/FilePreview.css";
 import { useState } from "react";
-import { updateAttribute } from "../../../api/attribute-api";
+import { updateTitleAttribute } from "../../../api/attribute-api";
 import { send } from "../../../utils/sockjs/client-sockjs";
 import { useParams } from "react-router-dom";
 
 function FilePreview(props) {
   const { type, link, title, content } = props;
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(title);
   const { roomId } = useParams();
-
-  console.log(content);
 
   const handleBlur = async () => {
     try {
-      const response = await updateAttribute({
-        ...content,
+      const response = await updateTitleAttribute({
+        ...content.attribute,
         title: value,
       });
-      // console.log(response);
-      send(roomId, { ...content, title: value });
+      console.log(response);
+      send(roomId, { ...content, attribute: response });
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const handleOnChange = (e) => {
+    setValue(e.currentTarget.textContent);
   };
 
   return (
@@ -57,6 +59,8 @@ function FilePreview(props) {
             contentEditable={true}
             suppressContentEditableWarning={true}
             className={"FilePreview-title"}
+            onInput={handleOnChange}
+            onBlur={handleBlur}
           >
             {title}
           </div>

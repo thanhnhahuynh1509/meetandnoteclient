@@ -31,24 +31,16 @@ function Upload(props) {
   const currentComponent = useSelector(selectCurrentComponent);
 
   const init = async () => {
-    // if (value && isValidUrl(value)) {
-    //   setRenderUrl(true);
-    //   props.setDisable(false);
-    //   setIsFocus(false);
-    //   const link = await (
-    //     await axios.get(API_URL + "/api/link?url=" + value, getConfig())
-    //   ).data;
-    //   setLink(link);
-    // }
-  };
-
-  useEffect(() => {
     if (props.content.attribute.content) {
       setRenderUrl(true);
       setLink(props.content.attribute.content);
       setType(props.content.attribute.fileType);
       setTitle(props.content.attribute.title);
     }
+  };
+
+  useEffect(() => {
+    init();
   }, []);
 
   useEffect(() => {
@@ -63,22 +55,7 @@ function Upload(props) {
   }, [currentComponent]);
 
   useEffect(() => {
-    const data = props.content.attribute.content;
-
-    // const render = async () => {
-    //   if (data && isValidUrl(data)) {
-    //     setRenderUrl(true);
-    //     props.setDisable(false);
-    //     setIsFocus(false);
-
-    //     const link = await (
-    //       await axios.get(API_URL + "/api/link?url=" + data, getConfig())
-    //     ).data;
-    //     setLink(link);
-    //   }
-    // };
-
-    // render();
+    init();
   }, [props.content.attribute]);
 
   //   const handleFocus = async () => {
@@ -135,13 +112,6 @@ function Upload(props) {
   const handleOnChange = async (e) => {
     setValue(e.target.value);
     const file = e.target.files[0];
-    // const attribute = {
-    //   ...props.content.attribute,
-    //   content: value,
-    //   component: { id: props.content.id },
-    // };
-
-    // saveAttribbute(attribute);
     const formData = new FormData();
     formData.append("file", file);
     const path = await uploadAttributeFile(props.content.id, formData);
@@ -150,6 +120,15 @@ function Upload(props) {
     setRenderUrl(true);
     setType(file.type);
     setTitle(file.name);
+    send(roomId, {
+      ...props.content,
+      attribute: {
+        ...props.content.attribute,
+        title: file.name,
+        fileType: file.type,
+        content: path,
+      },
+    });
   };
 
   const handleOnClick = (e) => {

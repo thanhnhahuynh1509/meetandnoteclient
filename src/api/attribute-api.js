@@ -16,7 +16,7 @@ export const getAttributeByComponentID = async (id) => {
   return response.data;
 };
 
-export const updateAttribute = async (data) => {
+export const updateTitleAttribute = async (data) => {
   const response = await axios.put(
     API_URL + ATTRIBUTE + "/" + data.id,
     data,

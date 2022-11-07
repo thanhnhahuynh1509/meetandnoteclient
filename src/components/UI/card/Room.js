@@ -7,6 +7,8 @@ import {
   selectCurrentComponent,
   setCurrentComponent,
 } from "../../../store/component-slice";
+import { useParams } from "react-router-dom";
+import { send } from "../../../utils/sockjs/client-sockjs";
 
 function Room(props) {
   const { content } = props;
@@ -15,6 +17,7 @@ function Room(props) {
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState(content.title);
   const currentComponent = useSelector(selectCurrentComponent);
+  const { roomId } = useParams();
 
   const handleFocus = () => {
     props.setDisable(true);
@@ -41,6 +44,8 @@ function Room(props) {
         ...content,
         title: value,
       });
+      // console.log(response);
+      send(roomId, { ...content, title: value });
     } catch (e) {
       console.log(e);
     }

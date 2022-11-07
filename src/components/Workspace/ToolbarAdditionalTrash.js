@@ -8,10 +8,13 @@ import {
 import "./css/ToolbarAdditionalFeature.css";
 import ToolItemCard from "./ToolItemCard";
 import { deleteComponent } from "../../api/component-api";
+import { send } from "../../utils/sockjs/client-sockjs";
+import { useParams } from "react-router-dom";
 
 function ToolbarAdditionalTrash(props) {
   const dispatch = useDispatch();
   const currentComponent = useSelector(selectCurrentComponent);
+  const { roomId } = useParams();
 
   const handleOnClick = (e) => {
     e.stopPropagation();
@@ -24,6 +27,7 @@ function ToolbarAdditionalTrash(props) {
       }
       dispatch(removeComponent(currentComponent));
       dispatch(setCurrentComponent(null));
+      send(roomId, { ...currentComponent, command: "DELETE" });
     }
   };
 

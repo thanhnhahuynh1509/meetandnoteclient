@@ -32,7 +32,10 @@ function LinkPreview(props) {
           )}
           <div
             className="LinkPreview-link-container"
-            onClick={() => openLocation(link.url)}
+            onClick={(e) => {
+              e.stopPropagation();
+              openLocation(link.url);
+            }}
           >
             <img
               className="link-container-icon"
@@ -44,7 +47,10 @@ function LinkPreview(props) {
           </div>
           <div
             className="LinkPreview-title"
-            onClick={() => openLocation(link.url)}
+            onClick={(e) => {
+              e.stopPropagation();
+              openLocation(link.url);
+            }}
           >
             <p style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
               {link.title}

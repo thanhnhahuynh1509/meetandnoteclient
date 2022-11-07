@@ -14,30 +14,64 @@ import LinkPreview from "./LinkPreview";
 import { saveAttribbute } from "../../../api/attribute-api";
 import { useEffect } from "react";
 import { deleteComponent } from "../../../api/component-api";
+import { send } from "../../../utils/sockjs/client-sockjs";
+import { useParams } from "react-router-dom";
 
 function Link(props) {
   const dispatch = useDispatch();
   const [isFocus, setIsFocus] = useState(false);
-  const [value, setValue] = useState(props.content.attribute.content);
+  const [value, setValue] = useState(props.content.attribute.content ?? "");
   const [renderUrl, setRenderUrl] = useState(false);
   const [link, setLink] = useState(null);
+  const { roomId } = useParams();
+  const currentComponent = useSelector(selectCurrentComponent);
+
+  const init = async () => {
+    if (value && isValidUrl(value)) {
+      setRenderUrl(true);
+      props.setDisable(false);
+      setIsFocus(false);
+
+      const link = await (
+        await axios.get(API_URL + "/api/link?url=" + value, getConfig())
+      ).data;
+      setLink(link);
+    }
+  };
 
   useEffect(() => {
-    const init = async () => {
-      if (value && isValidUrl(value)) {
+    init();
+  }, []);
+
+  useEffect(() => {
+    if (
+      !currentComponent ||
+      currentComponent.id + currentComponent.type !==
+        props.content.id + props.content.type
+    ) {
+      props.setDisable(false);
+      setIsFocus(false);
+    }
+  }, [currentComponent]);
+
+  useEffect(() => {
+    const data = props.content.attribute.content;
+
+    const render = async () => {
+      if (data && isValidUrl(data)) {
         setRenderUrl(true);
         props.setDisable(false);
         setIsFocus(false);
 
         const link = await (
-          await axios.get(API_URL + "/api/link?url=" + value, getConfig())
+          await axios.get(API_URL + "/api/link?url=" + data, getConfig())
         ).data;
         setLink(link);
       }
     };
 
-    init();
-  }, []);
+    render();
+  }, [props.content.attribute]);
 
   const handleFocus = async () => {
     props.setDisable(true);
@@ -57,6 +91,7 @@ function Link(props) {
     setRenderUrl(true);
     props.setDisable(false);
     setIsFocus(false);
+    send(roomId, { ...props.content, attribute });
 
     const link = await (
       await axios.get(API_URL + "/api/link?url=" + value, getConfig())
@@ -78,6 +113,7 @@ function Link(props) {
       if (!value) {
         dispatch(removeComponent(props.content));
         deleteComponent(props.content);
+        send(roomId, { ...props.content, command: "DELETE" });
       }
     }
 
@@ -92,11 +128,20 @@ function Link(props) {
     setValue(e.target.value);
   };
 
+  const handleOnClick = (e) => {
+    e.stopPropagation();
+    if (renderUrl) {
+      dispatch(setCurrentComponent(props.content));
+      setIsFocus(true);
+      props.setDisable(true);
+    }
+  };
+
   return (
     <>
       <div
         className={`contain-card Link ${isFocus && `card-text-focus`}`}
-        onClick={(e) => e.stopPropagation()}
+        onClick={handleOnClick}
       >
         {!renderUrl && (
           <>

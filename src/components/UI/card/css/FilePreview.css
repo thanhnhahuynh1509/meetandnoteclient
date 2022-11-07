@@ -1,0 +1,30 @@
+.FilePreview-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 10px;
+}
+
+.FilePreview {
+    width: 80px;
+    min-width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.FilePreview img {
+    pointer-events: none;
+}
+
+.FilePreview-title {
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 200px;
+    width: 200px;
+    text-align: center;
+    word-wrap: break-word;
+    outline: none;
+}

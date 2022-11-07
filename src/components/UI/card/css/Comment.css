@@ -1,0 +1,11 @@
+.Comment-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.Comment-info > p {
+    font-size: 14px;
+    color: #666;
+}

@@ -15,3 +15,21 @@ export const getAttributeByComponentID = async (id) => {
   );
   return response.data;
 };
+
+export const updateAttribute = async (data) => {
+  const response = await axios.put(
+    API_URL + ATTRIBUTE + "/" + data.id,
+    data,
+    getConfig()
+  );
+  return response.data;
+};
+
+export const uploadAttributeFile = async (id, data) => {
+  const response = await axios.post(
+    API_URL + ATTRIBUTE + "/upload/" + id,
+    data,
+    getConfig()
+  );
+  return response.data;
+};

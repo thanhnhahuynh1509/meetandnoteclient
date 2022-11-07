@@ -1,4 +1,5 @@
 import "./css/card-text.css";
+import "./css/Comment.css";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,8 +15,10 @@ import {
 } from "../../../api/attribute-api";
 import { send } from "../../../utils/sockjs/client-sockjs";
 import { useParams } from "react-router-dom";
+import { API_URL } from "../../../api/common-api";
+import { USER_DEFAULT_IMAGE } from "../../../utils/image-utils";
 
-function Note(props) {
+function Comment(props) {
   const dispatch = useDispatch();
   const { roomId } = useParams();
   const [isFocus, setIsFocus] = useState(false);
@@ -24,6 +27,7 @@ function Note(props) {
   const [attribute, setAttribute] = useState(props.content.attribute);
 
   useEffect(() => {
+    console.log(props.content);
     const init = async () => {
       const attr = await getAttributeByComponentID(props.content.id);
       setAttribute(attr);
@@ -88,6 +92,18 @@ function Note(props) {
         onClick={(e) => e.stopPropagation()}
         id={props.content.id + props.content.type}
       >
+        <div className="Comment-info">
+          <img
+            src={
+              API_URL + "/" + props.content.user.avatar ?? USER_DEFAULT_IMAGE
+            }
+            alt=""
+            style={{ width: "30px", height: "30px", borderRadius: "4px" }}
+          />
+          <p>
+            {props.content.user.firstName} {props.content.user.lastName}
+          </p>
+        </div>
         <div
           className={`card-text Note`}
           contentEditable={true}
@@ -105,4 +121,4 @@ function Note(props) {
   );
 }
 
-export default Note;
+export default Comment;

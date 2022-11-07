@@ -8,7 +8,7 @@ import {
 import { useEffect, useRef } from "react";
 import { selectCurrentComponent } from "../../store/component-slice";
 import ToolbarAdditionalColor from "./ToolbarAdditionalColor";
-import ToolbarAdditionalTrash from './ToolbarAdditionalTrash';
+import ToolbarAdditionalTrash from "./ToolbarAdditionalTrash";
 
 function WorkspaceToolbar(props) {
   const dispatch = useDispatch();
@@ -61,9 +61,8 @@ function WorkspaceToolbar(props) {
                 isDrag={false}
                 icon={"fa-solid fa-file"}
                 title={"Upload"}
-                type={"FILE"}
+                type={"UPLOAD"}
               />
-
 
               {/* <div className="mt-auto contain-trash-feature">
               
@@ -82,13 +81,11 @@ function WorkspaceToolbar(props) {
 
           {currentComponent && (
             <>
-             
-            <ToolbarAdditionalColor
+              <ToolbarAdditionalColor
                 icon={"fa-solid fa-droplet"}
                 title={"Color Top"}
                 type={"COLOR_TOP"}
               />
-              <div className="mt-auto"></div>
               <ToolbarAdditionalTrash
                 icon={"fa-solid fa-trash"}
                 title={"Trash"}

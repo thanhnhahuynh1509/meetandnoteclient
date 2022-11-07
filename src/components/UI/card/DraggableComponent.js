@@ -13,7 +13,9 @@ import Todo from "./Todo";
 import Room from "./Room";
 import { updateRoomPosition } from "../../../api/room-api";
 import { updateComponentPosition } from "../../../api/component-api";
-
+import { useParams } from "react-router-dom";
+import Comment from "./Comment";
+import Upload from "./Upload";
 
 const spaceAddition = 200;
 
@@ -21,6 +23,7 @@ function DraggableComponent(props) {
   const dispatch = useDispatch();
   const { parentRef, content } = props;
   const user = JSON.parse(localStorage.getItem("user"));
+  const { roomId } = useParams();
 
   const [disable, setDisable] = useState(false);
   const [position, setPosition] = useState({ ...props.position });
@@ -72,7 +75,7 @@ function DraggableComponent(props) {
       const response = await updateComponentPosition(component);
     }
 
-    send(user.roomLink, component);
+    send(roomId, component);
   };
 
   return (
@@ -93,7 +96,12 @@ function DraggableComponent(props) {
         {content.type === "TODO" && (
           <Todo setDisable={setDisable} content={content} />
         )}
-        {content.type === "COMMENT" && <></>}
+        {content.type === "COMMENT" && (
+          <Comment setDisable={setDisable} content={content} />
+        )}
+        {content.type === "UPLOAD" && (
+          <Upload setDisable={setDisable} content={content} />
+        )}
         {content.type === "ROOM" && (
           <Room setDisable={setDisable} content={content} />
         )}

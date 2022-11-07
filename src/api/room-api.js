@@ -49,8 +49,3 @@ export const deleteRoom = async (data) => {
   );
   return response.data;
 };
-
-export const getLastIDRoom = async () => {
-  const response = await axios.get(API_URL + ROOM + "/last-id", getConfig());
-  return response.data;
-};

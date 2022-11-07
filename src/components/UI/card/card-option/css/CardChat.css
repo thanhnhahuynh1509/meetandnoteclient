@@ -10,6 +10,7 @@
 .option-bar-chats {
   height: 300px;
   overflow-y: auto;
+  background-color: #eee;
 }
 
 .option-bar-chat {

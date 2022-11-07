@@ -54,10 +54,12 @@ function Todo(props) {
         dispatch(removeComponent(props.content));
         deleteTodo(id);
         deleteComponent(props.content);
-        send(roomId, props.content);
+        send(roomId, { ...props.content, command: "DELETE" });
+        dispatch(setCurrentComponent(null));
       } else if (todo && value.length > 1 && !todo.content) {
         setValue([...value.filter((m) => m.id !== id)]);
         deleteTodo(id);
+        send(roomId, { ...props.content });
       }
     } else if (key === "Enter") {
       const todo = {

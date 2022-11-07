@@ -12,6 +12,7 @@
     "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-archer": "^4.2.0",
+    "react-doc-viewer": "^0.1.5",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.5",
     "react-jss": "^10.9.2",

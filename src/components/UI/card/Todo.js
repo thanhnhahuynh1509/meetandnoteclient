@@ -23,8 +23,8 @@ function Todo(props) {
   const { roomId } = useParams();
 
   const init = async () => {
-    const response = await getTodoByAttributeId(props.content.attribute.id);
-    setValue(response);
+    setValue(props.content.attribute.todos);
+    console.log(props.content);
   };
 
   useEffect(() => {
@@ -44,6 +44,10 @@ function Todo(props) {
   const handleBlur = () => {
     props.setDisable(false);
     setIsFocus(false);
+    send(roomId, {
+      ...props.content,
+      attribute: { ...props.content.attribute, todos: [...value] },
+    });
   };
 
   const handleKeyDown = async (e, id) => {
@@ -57,9 +61,13 @@ function Todo(props) {
         send(roomId, { ...props.content, command: "DELETE" });
         dispatch(setCurrentComponent(null));
       } else if (todo && value.length > 1 && !todo.content) {
-        setValue([...value.filter((m) => m.id !== id)]);
+        const data = [...value.filter((m) => m.id !== id)];
+        setValue(data);
         deleteTodo(id);
-        send(roomId, { ...props.content });
+        send(roomId, {
+          ...props.content,
+          attribute: { ...props.content.attribute, todos: [...data] },
+        });
       }
     } else if (key === "Enter") {
       const todo = {
@@ -67,21 +75,28 @@ function Todo(props) {
         done: false,
       };
 
-      setValue([...value, await saveTodo(props.content.attribute.id, todo)]);
+      const response = await saveTodo(props.content.attribute.id, todo);
+
+      setValue([...value, response]);
       lastInputTodoRef.current.focus();
 
-      send(roomId, props.content);
+      send(roomId, {
+        ...props.content,
+        attribute: { ...props.content.attribute, todos: [...value, response] },
+      });
     }
   };
 
   const handleOnChange = (e, id) => {
     const data = value.map((t) => {
+      console.log(t);
       if (t.id === id) {
         const td = { ...t, content: e.target.value };
         updateTodo(td);
         return td;
+      } else {
+        return t;
       }
-      return t;
     });
     setValue(data);
   };
@@ -92,11 +107,16 @@ function Todo(props) {
         const td = { ...t, done: !t.done };
         updateTodo(td);
         return td;
+      } else {
+        return t;
       }
-      return t;
     });
 
     setValue(data);
+    send(roomId, {
+      ...props.content,
+      attribute: { ...props.content.attribute, todos: [...data] },
+    });
   };
 
   return (

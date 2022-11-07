@@ -31,7 +31,12 @@ function FilePreview(props) {
   return (
     <>
       {type.startsWith("image/") && (
-        <object data={API_URL + "/" + link} width="300"></object>
+        <div
+          className={`contain-card Link ${props.isFocus && `card-text-focus`}`}
+          onClick={props.handleOnClick}
+        >
+          <object data={API_URL + "/" + link} width="300"></object>
+        </div>
       )}
       {type.startsWith("application/pdf") && (
         <div

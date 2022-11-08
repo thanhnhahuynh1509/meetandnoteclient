@@ -12,7 +12,7 @@ import {
   updateComponent,
 } from "../../store/component-slice";
 import Header from "../UI/header/Header";
-import { getRoomByLink } from "../../api/room-api";
+import { checkUserInRoom, getRoomByLink } from "../../api/room-api";
 import { updateCurrentRoom } from "../../store/room-slice";
 import { updateChat } from "../../store/chat-slice";
 
@@ -38,6 +38,11 @@ function Workspace(props) {
   useEffect(() => {
     const init = async () => {
       try {
+        const userInRoom = await checkUserInRoom(roomId, user.id);
+        if (!userInRoom) {
+          // not in the room
+          window.location.href = "/" + user.roomLink;
+        }
         const room = await getRoomByLink(roomId);
         connect(roomId, addComponentSockJS);
         dispatch(updateCurrentRoom(room));

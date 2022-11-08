@@ -9,6 +9,7 @@ import { useEffect, useRef } from "react";
 import { selectCurrentComponent } from "../../store/component-slice";
 import ToolbarAdditionalColor from "./ToolbarAdditionalColor";
 import ToolbarAdditionalTrash from "./ToolbarAdditionalTrash";
+import ToolbarAdditionalDownload from "./ToolbarAdditionalDownload";
 
 function WorkspaceToolbar(props) {
   const dispatch = useDispatch();
@@ -86,6 +87,13 @@ function WorkspaceToolbar(props) {
                 title={"Color Top"}
                 type={"COLOR_TOP"}
               />
+              {currentComponent.type === "UPLOAD" && (
+                <ToolbarAdditionalDownload
+                  icon={"fa-solid fa-download"}
+                  title={"Download"}
+                  type={"DOWNLOAD"}
+                />
+              )}
               <ToolbarAdditionalTrash
                 icon={"fa-solid fa-trash"}
                 title={"Trash"}

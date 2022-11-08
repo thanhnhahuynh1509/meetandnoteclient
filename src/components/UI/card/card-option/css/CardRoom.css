@@ -1,0 +1,39 @@
+.CardRoom {
+    min-width: 400px;
+  }
+  
+  .CardRoom .option-bar-header {
+    border-bottom: 0.5px solid #ccc;
+  }
+  
+.option-bar-rooms {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+  .option-bar-room {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background-color: #fff;
+    padding: 20px;
+  }
+  
+  .room-bar-header-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .room-content-text {
+    text-align: start;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .room-bar-header-time {
+    font-size: 14px;
+    color: #666;
+  }
+  

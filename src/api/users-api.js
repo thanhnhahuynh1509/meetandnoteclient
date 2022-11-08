@@ -12,6 +12,14 @@ export const getUserByToken = async (token) => {
   return response.data;
 };
 
+export const getUsersByRoomId = async (roomId) => {
+  const response = await axios.get(
+    API_URL + USER + "/rooms/" + roomId,
+    getConfig()
+  );
+  return response.data;
+};
+
 export const updateUserImage = async (id, data) => {
   const response = await axios.put(
     API_URL + USER + "/" + id + "/update-image",

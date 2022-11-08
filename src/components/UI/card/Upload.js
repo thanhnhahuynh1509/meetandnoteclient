@@ -150,6 +150,9 @@ function Upload(props) {
             <input
               type="file"
               className={`card-text`}
+              accept={
+                "image/*, .pdf, .doc, .docx, .xls, .xlsx, .xml, .txt, .html, .js, .json, .css"
+              }
               placeholder="Enter a link URL"
               value={value}
               onChange={handleOnChange}

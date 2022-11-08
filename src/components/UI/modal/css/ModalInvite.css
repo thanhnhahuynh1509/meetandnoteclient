@@ -38,6 +38,7 @@
   padding: 10px 10px;
   outline: none;
   border-radius: 4px;
+  width: 100%;
 }
 
 .ModalInvite-container .contain-form .button {

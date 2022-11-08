@@ -1,5 +1,17 @@
 import { API_URL } from "../../../api/common-api";
 import pdf from "../../../assets/image/pdf.png";
+import doc from "../../../assets/image/doc.png";
+import xls from "../../../assets/image/xls.png";
+import xlsx from "../../../assets/image/xlsx.png";
+import xml from "../../../assets/image/xml.png";
+import txt from "../../../assets/image/txt.png";
+import js from "../../../assets/image/js.png";
+import json from "../../../assets/image/json.png";
+import file from "../../../assets/image/file.png";
+import csv from "../../../assets/image/csv.png";
+import html from "../../../assets/image/html.png";
+import css from "../../../assets/image/css.png";
+
 import "./css/FilePreview.css";
 import { useState } from "react";
 import { updateTitleAttribute } from "../../../api/attribute-api";
@@ -10,6 +22,43 @@ function FilePreview(props) {
   const { type, link, title, content } = props;
   const [value, setValue] = useState(title);
   const { roomId } = useParams();
+
+  const renderIcon = () => {
+    if (type.startsWith("application/pdf")) {
+      return pdf;
+    } else if (
+      type.startsWith("application/msword") ||
+      type.startsWith(
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      )
+    ) {
+      return doc;
+    } else if (type.startsWith("application/vnd.ms-excel")) {
+      return xls;
+    } else if (
+      type.startsWith(
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      )
+    ) {
+      return xlsx;
+    } else if (type.startsWith("application/xml")) {
+      return xml;
+    } else if (type.startsWith("text/plain")) {
+      return txt;
+    } else if (type.startsWith("text/html")) {
+      return html;
+    } else if (type.startsWith("text/css")) {
+      return css;
+    } else if (type.startsWith("text/csv")) {
+      return csv;
+    } else if (type.startsWith("text/javascript")) {
+      return js;
+    } else if (type.startsWith("application/json")) {
+      return json;
+    }
+  };
+
+  console.log(type);
 
   const handleBlur = async () => {
     try {
@@ -38,7 +87,8 @@ function FilePreview(props) {
           <object data={API_URL + "/" + link} width="300"></object>
         </div>
       )}
-      {type.startsWith("application/pdf") && (
+
+      {!type.startsWith("image/") && (
         <div
           className="FilePreview-container"
           onClick={(e) => {
@@ -58,7 +108,7 @@ function FilePreview(props) {
             }}
             onDoubleClick={(e) => {}}
           >
-            <img src={pdf} alt="" style={{ width: "30px" }} />
+            <img src={renderIcon()} alt="" style={{ width: "30px" }} />
           </div>
           <div
             contentEditable={true}

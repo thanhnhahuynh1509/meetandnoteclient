@@ -10,17 +10,32 @@ import ModalVideo from "../modal/ModalVideo";
 import { useSelector } from "react-redux";
 import { selectCurrentComponent } from "../../../store/component-slice";
 import { selectCurrentRoom } from "../../../store/room-slice";
+import CardRoom from "../card/card-option/CardRoom";
+import { useEffect } from "react";
+import { getRoomOwnerByLinkAndUser } from "../../../api/room-api";
+import { useParams } from "react-router-dom";
 
 function Header(props) {
+  const { roomId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [openOptionUser, setOpenOptionUser] = useState(false);
   const [openOptionNotification, setOpenOptionNotification] = useState(false);
   const [openOptionParticipant, setOpenOptionParticipant] = useState(false);
   const [openOptionChat, setOpenOptionChat] = useState(false);
+  const [openOptionRoom, setOpenOptionRoom] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const currentRoom = useSelector(selectCurrentRoom);
 
   const [placeForModal, setPlaceForModal] = useState(<></>);
+
+  useEffect(() => {
+    const init = async () => {
+      const response = await getRoomOwnerByLinkAndUser(roomId, user.id);
+      console.log(response);
+    };
+
+    init();
+  }, []);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -42,6 +57,10 @@ function Header(props) {
     setOpenOptionChat(value);
   };
 
+  const setOpenRoom = (value) => {
+    setOpenOptionRoom(value);
+  };
+
   const openModalShare = () => {
     setPlaceForModal(
       <ModalInvite isOpen={true} onClose={() => setPlaceForModal(<></>)} />
@@ -49,6 +68,12 @@ function Header(props) {
   };
 
   const openModalVideo = () => {
+    setPlaceForModal(
+      <ModalVideo isOpen={true} onClose={() => setPlaceForModal(<></>)} />
+    );
+  };
+
+  const openRoom = () => {
     setPlaceForModal(
       <ModalVideo isOpen={true} onClose={() => setPlaceForModal(<></>)} />
     );
@@ -68,11 +93,29 @@ function Header(props) {
                   >
                     Home
                   </li>
-                  <li className="Header-navigate-item">{currentRoom.title}</li>
+                  {roomId !== user.roomLink && (
+                    <li className="Header-navigate-item">
+                      {currentRoom.title}
+                    </li>
+                  )}
                 </ul>
               </div>
 
               <div className="Header-contain-buttons">
+                <div
+                  className="Header-button button-transparent tooltip-parent"
+                  onClick={() => setOpenRoom(true)}
+                >
+                  <i className="fa-solid fa-door-open"></i>
+                  <CardRoom
+                    isOpen={openOptionRoom}
+                    onClose={(e) => {
+                      if (e) e.stopPropagation();
+                      setOpenRoom(false);
+                    }}
+                  />
+                  <Tooltip>Phòng họp</Tooltip>
+                </div>
                 <button
                   className="Header-button button-transparent tooltip-parent"
                   onClick={setOpenNotification}
@@ -104,58 +147,60 @@ function Header(props) {
               </div>
             </div>
 
-            <div className="Header-contain-content">
-              <div className="Header-content-space"></div>
-              <div className="Header-content-title">
-                <h3>{currentRoom.title}</h3>
-              </div>
-              <div className="Header-content-features">
-                <div className="Header-contain-buttons">
-                  <button
-                    className="button bg-black-blue"
-                    onClick={() => openModalShare()}
-                  >
-                    Share
-                  </button>
+            {user.roomLink !== roomId && (
+              <div className="Header-contain-content">
+                <div className="Header-content-space"></div>
+                <div className="Header-content-title">
+                  <h3>{currentRoom.title}</h3>
+                </div>
+                <div className="Header-content-features">
+                  <div className="Header-contain-buttons">
+                    <button
+                      className="button bg-black-blue"
+                      onClick={() => openModalShare()}
+                    >
+                      Share
+                    </button>
 
-                  <button
-                    className="Header-button button-transparent tooltip-parent"
-                    onClick={() => setOpenParticipant(true)}
-                  >
-                    <i className="fa-solid fa-user-group"></i>
-                    <CardParticipant
-                      isOpen={openOptionParticipant}
-                      onClose={(e) => {
-                        e.stopPropagation();
-                        setOpenParticipant(false);
-                      }}
-                    />
-                    <Tooltip>Thành viên</Tooltip>
-                  </button>
-                  <div
-                    className="Header-button button-transparent tooltip-parent"
-                    onClick={() => setOpenChat(true)}
-                  >
-                    <i className="fa-solid fa-message"></i>
-                    <CardChat
-                      isOpen={openOptionChat}
-                      onClose={(e) => {
-                        e.stopPropagation();
-                        setOpenChat(false);
-                      }}
-                    />
-                    <Tooltip>Tin nhắn</Tooltip>
-                  </div>
-                  <div
-                    className="Header-button button-transparent tooltip-parent"
-                    onClick={() => openModalVideo()}
-                  >
-                    <i className="fa-solid fa-video"></i>
-                    <Tooltip>Gọi Video</Tooltip>
+                    <button
+                      className="Header-button button-transparent tooltip-parent"
+                      onClick={() => setOpenParticipant(true)}
+                    >
+                      <i className="fa-solid fa-user-group"></i>
+                      <CardParticipant
+                        isOpen={openOptionParticipant}
+                        onClose={(e) => {
+                          e.stopPropagation();
+                          setOpenParticipant(false);
+                        }}
+                      />
+                      <Tooltip>Thành viên</Tooltip>
+                    </button>
+                    <div
+                      className="Header-button button-transparent tooltip-parent"
+                      onClick={() => setOpenChat(true)}
+                    >
+                      <i className="fa-solid fa-message"></i>
+                      <CardChat
+                        isOpen={openOptionChat}
+                        onClose={(e) => {
+                          e.stopPropagation();
+                          setOpenChat(false);
+                        }}
+                      />
+                      <Tooltip>Tin nhắn</Tooltip>
+                    </div>
+                    <div
+                      className="Header-button button-transparent tooltip-parent"
+                      onClick={() => openModalVideo()}
+                    >
+                      <i className="fa-solid fa-video"></i>
+                      <Tooltip>Gọi Video</Tooltip>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
 
             <div className="Header-contain-toggle">
               <div

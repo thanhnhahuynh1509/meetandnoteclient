@@ -11,6 +11,14 @@ export const getRoomByLink = async (link) => {
   return response.data;
 };
 
+export const checkUserInRoom = async (link, id) => {
+  const response = await axios.get(
+    API_URL + ROOM + "/check-user-in-room/" + link + "/users/" + id,
+    getConfig()
+  );
+  return response.data;
+};
+
 export const getChildrenRoomByLink = async (link) => {
   const response = await axios.get(
     API_URL + ROOM + "/children/" + link,
@@ -19,8 +27,33 @@ export const getChildrenRoomByLink = async (link) => {
   return response.data;
 };
 
+export const getRoomsByUserId = async (id) => {
+  const response = await axios.get(
+    API_URL + ROOM + "/users/" + id,
+    getConfig()
+  );
+  return response.data;
+};
+
+export const getRoomOwnerByLinkAndUser = async (link, id) => {
+  const response = await axios.get(
+    API_URL + ROOM + "/link/" + link + "/users/" + id,
+    getConfig()
+  );
+  return response.data;
+};
+
 export const saveRoom = async (data) => {
   const response = await axios.post(API_URL + ROOM, data, getConfig());
+  return response.data;
+};
+
+export const inviteUser = async (roomId, email, permission) => {
+  const response = await axios.post(
+    API_URL + ROOM + "/" + roomId + "/users/" + email + "/" + permission,
+    {},
+    getConfig()
+  );
   return response.data;
 };
 

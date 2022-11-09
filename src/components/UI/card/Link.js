@@ -25,6 +25,7 @@ function Link(props) {
   const [link, setLink] = useState(null);
   const { roomId } = useParams();
   const currentComponent = useSelector(selectCurrentComponent);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const init = async () => {
     if (value && isValidUrl(value)) {
@@ -108,24 +109,28 @@ function Link(props) {
   };
 
   const handleKeyDown = async (e) => {
-    const key = e.key;
-    if (key === "Backspace") {
-      if (!value) {
-        dispatch(removeComponent(props.content));
-        deleteComponent(props.content);
-        send(roomId, { ...props.content, command: "DELETE" });
+    if (user.fullPermission) {
+      const key = e.key;
+      if (key === "Backspace") {
+        if (!value) {
+          dispatch(removeComponent(props.content));
+          deleteComponent(props.content);
+          send(roomId, { ...props.content, command: "DELETE" });
+        }
       }
-    }
 
-    if (key === "Enter") {
-      if (value && isValidUrl(value)) {
-        saveAndRender();
+      if (key === "Enter") {
+        if (value && isValidUrl(value)) {
+          saveAndRender();
+        }
       }
     }
   };
 
   const handleOnChange = (e) => {
-    setValue(e.target.value);
+    if (user.fullPermission) {
+      setValue(e.target.value);
+    }
   };
 
   const handleOnClick = (e) => {

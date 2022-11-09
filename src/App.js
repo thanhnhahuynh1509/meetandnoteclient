@@ -8,10 +8,13 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { updateUser } from "./store/user-slice";
 import { useState } from "react";
+import AuthorizePage from "./components/ErrorPage/AuthorizePage";
+import RoomNotExists from "./components/ErrorPage/RoomNotExists";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [changeTrigger, setChangeTrigger] = useState("");
 
   useEffect(() => {
     const init = async () => {
@@ -31,6 +34,8 @@ function App() {
             <Route path="/sign-in" element={<LoginForm />} />
             <Route path="/sign-up" element={<RegisterForm />} />
             <Route path="/:roomId" element={<Workspace />} />
+            <Route path="/authorized" element={<AuthorizePage />} />
+            <Route path="/room-not-exist" element={<RoomNotExists />} />
           </>
         }
       </Routes>

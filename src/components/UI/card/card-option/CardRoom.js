@@ -2,7 +2,7 @@ import CardOption from "./CardOption";
 import UserRound from "./UserRound";
 import "./css/CardRoom.css";
 import { useEffect, useState } from "react";
-import { getRoomsByUserId } from "../../../../api/room-api";
+import { getRoomByOwner, getRoomsByUserId } from "../../../../api/room-api";
 import { useSelector } from "react-redux";
 import { selectComponents } from "../../../../store/component-slice";
 
@@ -13,7 +13,15 @@ function CardRoom(props) {
 
   const init = async () => {
     const response = await getRoomsByUserId(user.id);
-    setRooms(response);
+    const responseOwner = await getRoomByOwner(user.id);
+
+    for (let room of [...response, ...responseOwner]) {
+      if (!rooms.find((m) => m.id === room.id)) {
+        rooms.push(room);
+      }
+    }
+
+    setRooms([...rooms]);
   };
 
   useEffect(() => {
@@ -34,10 +42,25 @@ function CardRoom(props) {
               <div key={m.id} className="option-bar-room">
                 <div className="room-bar-header-content">
                   <i className="fa-solid fa-door-open"></i>
-                  <div className="room-content-text">{m.title}</div>
+                  <div>
+                    <div className="room-content-text">{m.title}</div>
+                    <p style={{ fontSize: "12px", color: "#666" }}>
+                      {m.owner.email}
+                    </p>
+                  </div>
                 </div>
                 <div className="room-bar-header-time">
-                  <a href={"/" + m.link}>Enter room</a>
+                  <a style={{ fontSize: "12px" }} href={"/" + m.link}>
+                    Enter room
+                  </a>
+                  {m.owner.id !== user.id && (
+                    <a
+                      style={{ fontSize: "12px", color: "red" }}
+                      href={"/" + m.link}
+                    >
+                      Leave
+                    </a>
+                  )}
                 </div>
               </div>
             );

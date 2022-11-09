@@ -22,6 +22,7 @@ function Note(props) {
   const [value, setValue] = useState("");
   const currentComponent = useSelector(selectCurrentComponent);
   const [attribute, setAttribute] = useState(props.content.attribute);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     const init = async () => {
@@ -50,30 +51,36 @@ function Note(props) {
   };
 
   const handleBlur = () => {
-    const attributeUpdate = {
-      ...attribute,
-      content: value,
-      component: { id: props.content.id },
-    };
+    if (user.fullPermission) {
+      const attributeUpdate = {
+        ...attribute,
+        content: value,
+        component: { id: props.content.id },
+      };
 
-    saveAttribbute(attributeUpdate);
-    send(roomId, { ...props.content, attribute: attributeUpdate });
+      saveAttribbute(attributeUpdate);
+      send(roomId, { ...props.content, attribute: attributeUpdate });
+    }
   };
 
   const handleKeyDown = (e) => {
-    const key = e.key;
-    if (key === "Backspace") {
-      if (!value) {
-        dispatch(removeComponent(props.content));
-        deleteComponent(props.content);
-        dispatch(setCurrentComponent(null));
-        send(roomId, { ...props.content, command: "DELETE" });
+    if (user.fullPermission) {
+      const key = e.key;
+      if (key === "Backspace") {
+        if (!value) {
+          dispatch(removeComponent(props.content));
+          deleteComponent(props.content);
+          dispatch(setCurrentComponent(null));
+          send(roomId, { ...props.content, command: "DELETE" });
+        }
       }
     }
   };
 
   const handleOnChange = (e) => {
-    setValue(e.currentTarget.textContent);
+    if (user.fullPermission) {
+      setValue(e.currentTarget.textContent);
+    }
   };
 
   return (

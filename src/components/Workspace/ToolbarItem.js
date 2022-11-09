@@ -23,10 +23,12 @@ function ToolbarItem(props) {
       posY: Math.round(e.pageY),
       parentId: currentRoom.id,
       user: user,
+      userCreated: user,
       type: props.type,
     };
     if (component.type === "ROOM") {
       const response = await saveRoom(component);
+      console.log(response);
       dispatch(updateComponent(response));
       send(roomId, response);
     } else {
@@ -46,7 +48,7 @@ function ToolbarItem(props) {
     <>
       <li
         className={`toolbar-item ${props.active && "active"}`}
-        draggable={true}
+        draggable={true && user.fullPermission}
         onDragEnd={handleDragEnd}
       >
         <ToolItemCard icon={props.icon} title={props.title} />

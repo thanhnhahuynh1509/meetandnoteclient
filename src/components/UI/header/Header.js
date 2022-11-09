@@ -31,7 +31,6 @@ function Header(props) {
   useEffect(() => {
     const init = async () => {
       const response = await getRoomOwnerByLinkAndUser(roomId, user.id);
-      console.log(response);
     };
 
     init();
@@ -155,12 +154,14 @@ function Header(props) {
                 </div>
                 <div className="Header-content-features">
                   <div className="Header-contain-buttons">
-                    <button
-                      className="button bg-black-blue"
-                      onClick={() => openModalShare()}
-                    >
-                      Share
-                    </button>
+                    {currentRoom.owner.id === user.id && (
+                      <button
+                        className="button bg-black-blue"
+                        onClick={() => openModalShare()}
+                      >
+                        Share
+                      </button>
+                    )}
 
                     <button
                       className="Header-button button-transparent tooltip-parent"

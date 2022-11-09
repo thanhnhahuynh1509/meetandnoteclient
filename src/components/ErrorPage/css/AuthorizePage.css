@@ -1,0 +1,19 @@
+.AuthorizePage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.AuthorizePage h1 {
+    margin-bottom: 20px;
+}
+
+.AuthorizePage p {
+    margin-bottom: 10px;
+}
+
+.AuthorizePage a {
+    margin: 5px 0;
+}

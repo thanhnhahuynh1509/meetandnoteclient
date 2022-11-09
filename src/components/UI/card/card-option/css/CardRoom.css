@@ -30,10 +30,18 @@
     text-align: start;
     font-size: 14px;
     color: #333;
+    width: 200px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .room-bar-header-time {
     font-size: 14px;
     color: #666;
+    display: flex;
+    gap: 10px;
   }
   

@@ -43,6 +43,14 @@ export const getRoomOwnerByLinkAndUser = async (link, id) => {
   return response.data;
 };
 
+export const getRoomByOwner = async (id) => {
+  const response = await axios.get(
+    API_URL + ROOM + "/owner/" + id,
+    getConfig()
+  );
+  return response.data;
+};
+
 export const saveRoom = async (data) => {
   const response = await axios.post(API_URL + ROOM, data, getConfig());
   return response.data;

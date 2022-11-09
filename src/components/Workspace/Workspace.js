@@ -15,6 +15,7 @@ import Header from "../UI/header/Header";
 import { checkUserInRoom, getRoomByLink } from "../../api/room-api";
 import { updateCurrentRoom } from "../../store/room-slice";
 import { updateChat } from "../../store/chat-slice";
+import { getUserByRoomAndUserId } from "../../api/users-api";
 
 function Workspace(props) {
   const { roomId } = useParams();
@@ -41,13 +42,23 @@ function Workspace(props) {
         const userInRoom = await checkUserInRoom(roomId, user.id);
         if (!userInRoom) {
           // not in the room
-          window.location.href = "/" + user.roomLink;
+          // window.location.href = "/authorized";
         }
         const room = await getRoomByLink(roomId);
         connect(roomId, addComponentSockJS);
         dispatch(updateCurrentRoom(room));
+        const userResponse = await getUserByRoomAndUserId(user.id, room.id);
+        console.log(userResponse);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            ...user,
+            fullPermission: userResponse.fullPermission,
+          })
+        );
       } catch (e) {
-        window.location.href = "/";
+        // window.location.href = "/room-not-exist";
+        console.log(e);
       }
     };
     init();

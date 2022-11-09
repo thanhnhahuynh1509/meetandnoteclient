@@ -20,6 +20,23 @@ export const getUsersByRoomId = async (roomId) => {
   return response.data;
 };
 
+export const getUserByRoomAndUserId = async (userId, roomId) => {
+  const response = await axios.get(
+    API_URL + USER + "/" + userId + "/rooms/" + roomId,
+    getConfig()
+  );
+  return response.data;
+};
+
+export const updateUserPermission = async (userId, roomId) => {
+  const response = await axios.put(
+    API_URL + USER + "/permission/" + userId + "/rooms/" + roomId,
+    {},
+    getConfig()
+  );
+  return response.data;
+};
+
 export const updateUserImage = async (id, data) => {
   const response = await axios.put(
     API_URL + USER + "/" + id + "/update-image",

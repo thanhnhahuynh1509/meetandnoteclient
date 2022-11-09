@@ -15,6 +15,7 @@ function ToolbarAdditionalTrash(props) {
   const dispatch = useDispatch();
   const currentComponent = useSelector(selectCurrentComponent);
   const { roomId } = useParams();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleOnClick = (e) => {
     e.stopPropagation();
@@ -33,9 +34,11 @@ function ToolbarAdditionalTrash(props) {
 
   return (
     <>
-      <li className="ToolbarAdditionalFeature" onClick={handleOnClick}>
-        <ToolItemCard icon={props.icon} title={props.title} />
-      </li>
+      {user.fullPermission && (
+        <li className="ToolbarAdditionalFeature" onClick={handleOnClick}>
+          <ToolItemCard icon={props.icon} title={props.title} />
+        </li>
+      )}
     </>
   );
 }

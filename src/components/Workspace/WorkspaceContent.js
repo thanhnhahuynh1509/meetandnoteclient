@@ -25,10 +25,9 @@ function WorkspaceContent(props) {
   useEffect(() => {
     const init = async () => {
       const responseOfRooms = await getChildrenRoomByLink(roomId);
+      console.log(responseOfRooms);
       const responseOfComponents = await getComponentByLinkNotTrash(roomId);
       dispatch(initComopent([...responseOfComponents, ...responseOfRooms]));
-
-
     };
 
     init();

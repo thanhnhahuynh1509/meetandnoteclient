@@ -83,7 +83,7 @@ function DraggableComponent(props) {
       position={{ x: position.x, y: position.y }}
       bounds={"parent"}
       onStop={handleOnStop}
-      disabled={disable}
+      disabled={disable || !user.fullPermission}
       cancel="input"
     >
       <div>

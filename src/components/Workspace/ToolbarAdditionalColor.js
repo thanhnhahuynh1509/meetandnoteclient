@@ -10,6 +10,7 @@ function ToolbarAdditionalColor(props) {
   const currentComponent = useSelector(selectCurrentComponent);
   const [color, setColor] = useState("#ffffff");
   const colorFileHidden = useRef(null);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     if (currentComponent.type === "ROOM") {
@@ -26,23 +27,25 @@ function ToolbarAdditionalColor(props) {
 
   return (
     <>
-      <li
-        className="ToolbarAdditionalFeature ToolbarAdditionalColor"
-        onClick={handleOnClick}
-      >
-        <ToolItemCard
-          style={{ boxShadow: "inset 0 3px 0 " + color }}
-          icon={props.icon}
-          title={props.title}
-        />
-        <input
-          className="color-input"
-          ref={colorFileHidden}
-          type="color"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-        />
-      </li>
+      {user.fullPermission && (
+        <li
+          className="ToolbarAdditionalFeature ToolbarAdditionalColor"
+          onClick={handleOnClick}
+        >
+          <ToolItemCard
+            style={{ boxShadow: "inset 0 3px 0 " + color }}
+            icon={props.icon}
+            title={props.title}
+          />
+          <input
+            className="color-input"
+            ref={colorFileHidden}
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+          />
+        </li>
+      )}
     </>
   );
 }

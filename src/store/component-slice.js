@@ -8,7 +8,9 @@ const componentSlice = createSlice({
       state.data = action.payload;
     },
     addComponent(state, action) {
-      state.data = [...state.data, action.payload];
+      if (action.payload != null) {
+        state.data = [...state.data, action.payload];
+      }
     },
     removeComponent(state, action) {
       state.data = [

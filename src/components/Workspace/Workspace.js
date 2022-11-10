@@ -7,6 +7,7 @@ import { connect } from "../../utils/sockjs/client-sockjs";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addComponent,
+  initComopent,
   removeComponent,
   selectComponents,
   updateComponent,
@@ -16,13 +17,14 @@ import { checkUserInRoom, getRoomByLink } from "../../api/room-api";
 import { updateCurrentRoom } from "../../store/room-slice";
 import { updateChat } from "../../store/chat-slice";
 import { getUserByRoomAndUserId } from "../../api/users-api";
+import { selectUser, updateUser } from "../../store/user-slice";
 
 function Workspace(props) {
   const { roomId } = useParams();
-  const user = JSON.parse(localStorage.getItem("user"));
+  let user = JSON.parse(localStorage.getItem("user"));
   const components = useSelector(selectComponents);
+  const userTrigger = useSelector(selectUser);
   const dispatch = useDispatch();
-
   const addComponentSockJS = (component) => {
     const command = component.command;
     delete component.command;
@@ -33,6 +35,13 @@ function Workspace(props) {
       dispatch(removeComponent(component));
     } else if (command === "CHAT") {
       dispatch(updateChat(component));
+    } else if (command === "PERMISSION") {
+      console.log(component);
+      if (user.id === component.userId) {
+        user = { ...user, fullPermission: !user.fullPermission };
+        localStorage.setItem("user", JSON.stringify({ ...user }));
+        dispatch(addComponent(null));
+      }
     }
   };
 
@@ -42,13 +51,12 @@ function Workspace(props) {
         const userInRoom = await checkUserInRoom(roomId, user.id);
         if (!userInRoom) {
           // not in the room
-          // window.location.href = "/authorized";
+          window.location.href = "/authorized";
         }
         const room = await getRoomByLink(roomId);
         connect(roomId, addComponentSockJS);
         dispatch(updateCurrentRoom(room));
         const userResponse = await getUserByRoomAndUserId(user.id, room.id);
-        console.log(userResponse);
         localStorage.setItem(
           "user",
           JSON.stringify({
@@ -57,12 +65,14 @@ function Workspace(props) {
           })
         );
       } catch (e) {
-        // window.location.href = "/room-not-exist";
+        window.location.href = "/room-not-exist";
         console.log(e);
       }
     };
     init();
   }, []);
+
+  useEffect(() => {}, [userTrigger]);
 
   return (
     <>

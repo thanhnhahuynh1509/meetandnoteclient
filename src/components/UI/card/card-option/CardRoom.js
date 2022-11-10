@@ -25,7 +25,6 @@ function CardRoom(props) {
   };
 
   useEffect(() => {
-    console.log("run");
     init();
   }, [components]);
 

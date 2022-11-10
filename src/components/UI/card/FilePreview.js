@@ -58,8 +58,6 @@ function FilePreview(props) {
     }
   };
 
-  console.log(type);
-
   const handleBlur = async () => {
     try {
       const response = await updateTitleAttribute({

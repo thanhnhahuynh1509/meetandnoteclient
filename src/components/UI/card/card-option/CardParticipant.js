@@ -8,16 +8,18 @@ import {
 } from "../../../../api/users-api";
 import { useSelector } from "react-redux";
 import { selectCurrentRoom } from "../../../../store/room-slice";
+import { send } from "../../../../utils/sockjs/client-sockjs";
+import { useParams } from "react-router-dom";
 
 function CardParticipant(props) {
   const [participants, setParticipants] = useState([]);
   const currentRoom = useSelector(selectCurrentRoom);
   const user = JSON.parse(localStorage.getItem("user"));
+  const { roomId } = useParams();
 
   useEffect(() => {
     const init = async () => {
       const response = await getUsersByRoomId(currentRoom.id);
-      console.log(response);
       setParticipants(response);
     };
 
@@ -26,7 +28,7 @@ function CardParticipant(props) {
 
   const handleOnChange = async (userId) => {
     const response = await updateUserPermission(userId, currentRoom.id);
-    console.log(response);
+    send(roomId, { command: "PERMISSION", userId });
   };
 
   return (
@@ -38,9 +40,6 @@ function CardParticipant(props) {
 
         <div className="option-bar-participants">
           {participants.map((m) => {
-            if (m.id === user.id) {
-              return <div key={m.id}></div>;
-            }
             return (
               <div key={m.id} className="option-bar-participant">
                 <div className="participant-bar-header-content">
@@ -51,7 +50,7 @@ function CardParticipant(props) {
                   </div>
                 </div>
                 <div className="participant-bar-header-time">
-                  {user.id === currentRoom.owner.id && (
+                  {user.id === currentRoom.owner.id && user.id !== m.id && (
                     <>
                       <input
                         type="checkbox"

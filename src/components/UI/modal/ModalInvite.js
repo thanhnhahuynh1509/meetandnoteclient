@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentRoom } from "../../../store/room-slice";
 import { inviteUser } from "../../../api/room-api";
 import { useState } from "react";
+import { send } from "../../../utils/sockjs/client-sockjs";
 
 function ModalInvite(props) {
   const [emailReadOnly, setEmailReadOnly] = useState("");
@@ -24,6 +25,7 @@ function ModalInvite(props) {
       } else if (response === "OK") {
         alert("Thành công");
         callBackClear("");
+        send(currentRoom.link, { command: "TRIGGER" });
       }
     } else {
       alert("Email không hợp lệ");

@@ -28,6 +28,9 @@ function DraggableComponent(props) {
   const [disable, setDisable] = useState(false);
   const [position, setPosition] = useState({ ...props.position });
 
+  const [childrenWidth, setChildrenWidth] = useState(0);
+  const [chidrenHeight, setChidrenHeight] = useState(0);
+
   const parentPos = parentRef.current.getBoundingClientRect();
 
   const parentBoundX = parentPos.width;
@@ -35,10 +38,11 @@ function DraggableComponent(props) {
 
   const handleBoundX = () => {
     const spaceX = Math.round(parentBoundX - spaceAddition);
-    if (position.x + spaceAddition >= spaceX) {
+    if (position.x + spaceAddition + childrenWidth >= spaceX) {
       dispatch(
         addSpace({
-          width: position.x + spaceAddition - spaceX + spaceAddition,
+          width:
+            position.x + spaceAddition + childrenWidth - spaceX + spaceAddition,
           height: 0,
         })
       );
@@ -48,11 +52,12 @@ function DraggableComponent(props) {
   const handleBoundY = () => {
     const spaceY = Math.round(parentBoundY - spaceAddition / 2);
 
-    if (position.y + spaceAddition >= spaceY) {
+    if (position.y + spaceAddition + chidrenHeight >= spaceY) {
       dispatch(
         addSpace({
           width: 0,
-          height: position.y + spaceAddition - spaceY + spaceAddition,
+          height:
+            position.y + spaceAddition + chidrenHeight - spaceY + spaceAddition,
         })
       );
     }
@@ -62,7 +67,7 @@ function DraggableComponent(props) {
     setPosition({ x: content.posX, y: content.posY });
     handleBoundX();
     handleBoundY();
-  }, [content]);
+  }, [content, childrenWidth, chidrenHeight]);
 
   const handleOnStop = async (e, data) => {
     setPosition({ x: data.x, y: data.y });
@@ -88,22 +93,52 @@ function DraggableComponent(props) {
     >
       <div>
         {content.type === "NOTE" && (
-          <Note setDisable={setDisable} content={content} />
+          <Note
+            setChildrenWidth={setChildrenWidth}
+            setChildrenHeight={setChidrenHeight}
+            setDisable={setDisable}
+            content={content}
+          />
         )}
         {content.type === "LINK" && (
-          <Link setDisable={setDisable} content={content} />
+          <Link
+            setChildrenWidth={setChildrenWidth}
+            setChildrenHeight={setChidrenHeight}
+            setDisable={setDisable}
+            content={content}
+          />
         )}
         {content.type === "TODO" && (
-          <Todo setDisable={setDisable} content={content} />
+          <Todo
+            setChildrenWidth={setChildrenWidth}
+            setChildrenHeight={setChidrenHeight}
+            setDisable={setDisable}
+            content={content}
+          />
         )}
         {content.type === "COMMENT" && (
-          <Comment setDisable={setDisable} content={content} />
+          <Comment
+            setChildrenWidth={setChildrenWidth}
+            setChildrenHeight={setChidrenHeight}
+            setDisable={setDisable}
+            content={content}
+          />
         )}
         {content.type === "UPLOAD" && (
-          <Upload setDisable={setDisable} content={content} />
+          <Upload
+            setChildrenWidth={setChildrenWidth}
+            setChildrenHeight={setChidrenHeight}
+            setDisable={setDisable}
+            content={content}
+          />
         )}
         {content.type === "ROOM" && (
-          <Room setDisable={setDisable} content={content} />
+          <Room
+            setChildrenWidth={setChildrenWidth}
+            setChildrenHeight={setChidrenHeight}
+            setDisable={setDisable}
+            content={content}
+          />
         )}
       </div>
     </Draggable>

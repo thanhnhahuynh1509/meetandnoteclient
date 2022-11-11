@@ -65,6 +65,14 @@ export const inviteUser = async (roomId, email, permission) => {
   return response.data;
 };
 
+export const leaveRoom = async (roomId, userId) => {
+  const response = await axios.delete(
+    API_URL + ROOM + "/" + roomId + "/leave/" + userId,
+    getConfig()
+  );
+  return response.data;
+};
+
 export const updateRoomPosition = async (data) => {
   const response = await axios.put(
     API_URL + ROOM + "/position/" + data.id,

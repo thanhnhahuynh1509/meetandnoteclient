@@ -33,3 +33,11 @@ export const uploadAttributeFile = async (id, data) => {
   );
   return response.data;
 };
+
+export const downloadAttributeFile = async (id) => {
+  const response = await axios.get(
+    API_URL + ATTRIBUTE + "/export/" + id,
+    getConfig()
+  );
+  return response.data;
+};

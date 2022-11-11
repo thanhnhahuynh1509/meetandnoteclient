@@ -18,6 +18,7 @@ import { deleteComponent } from "../../../api/component-api";
 import { send } from "../../../utils/sockjs/client-sockjs";
 import { useParams } from "react-router-dom";
 import FilePreview from "./FilePreview";
+import { useRef } from "react";
 
 function Upload(props) {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function Upload(props) {
   const [title, setTitle] = useState("");
   const { roomId } = useParams();
   const currentComponent = useSelector(selectCurrentComponent);
+  const currentRef = useRef();
 
   const init = async () => {
     if (props.content.attribute.content) {
@@ -38,10 +40,6 @@ function Upload(props) {
       setTitle(props.content.attribute.title);
     }
   };
-
-  useEffect(() => {
-    init();
-  }, []);
 
   useEffect(() => {
     if (
@@ -56,58 +54,10 @@ function Upload(props) {
 
   useEffect(() => {
     init();
+    const children = currentRef.current.getBoundingClientRect();
+    props.setChildrenWidth(children.width);
+    props.setChildrenHeight(children.height);
   }, [props.content.attribute]);
-
-  //   const handleFocus = async () => {
-  //     props.setDisable(true);
-  //     setIsFocus(true);
-  //     dispatch(setCurrentComponent(props.content));
-  //   };
-
-  //   const saveAndRender = async () => {
-  //     const attribute = {
-  //       ...props.content.attribute,
-  //       content: value,
-  //       component: { id: props.content.id },
-  //     };
-
-  //     saveAttribbute(attribute);
-
-  //     setRenderUrl(true);
-  //     props.setDisable(false);
-  //     setIsFocus(false);
-  //     send(roomId, { ...props.content, attribute });
-
-  //     const link = await (
-  //       await axios.get(API_URL + "/api/link?url=" + value, getConfig())
-  //     ).data;
-  //     setLink(link);
-  //   };
-
-  //   const handleBlur = () => {
-  //     props.setDisable(false);
-  //     setIsFocus(false);
-  //     if (value && isValidUrl(value)) {
-  //       saveAndRender();
-  //     }
-  //   };
-
-  //   const handleKeyDown = async (e) => {
-  //     const key = e.key;
-  //     if (key === "Backspace") {
-  //       if (!value) {
-  //         dispatch(removeComponent(props.content));
-  //         deleteComponent(props.content);
-  //         send(roomId, { ...props.content, command: "DELETE" });
-  //       }
-  //     }
-
-  //     if (key === "Enter") {
-  //       if (value && isValidUrl(value)) {
-  //         saveAndRender();
-  //       }
-  //     }
-  //   };
 
   const handleOnChange = async (e) => {
     setValue(e.target.value);
@@ -144,6 +94,7 @@ function Upload(props) {
         <div
           className={`contain-card Link ${isFocus && `card-text-focus`}`}
           onClick={handleOnClick}
+          ref={currentRef}
         >
           <>
             <i className="fa-solid fa-link"></i>
@@ -161,7 +112,7 @@ function Upload(props) {
         </div>
       )}
       {renderUrl && (
-        <>
+        <div ref={currentRef}>
           <FilePreview
             handleOnClick={handleOnClick}
             isFocus={isFocus}
@@ -170,7 +121,7 @@ function Upload(props) {
             link={link}
             content={props.content}
           />
-        </>
+        </div>
       )}
     </>
   );

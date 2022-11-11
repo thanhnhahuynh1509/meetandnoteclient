@@ -1,6 +1,6 @@
 import "./css/card-text.css";
 import "./css/card-link.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeComponent,
@@ -26,6 +26,7 @@ function Link(props) {
   const { roomId } = useParams();
   const currentComponent = useSelector(selectCurrentComponent);
   const user = JSON.parse(localStorage.getItem("user"));
+  const currentRef = useRef();
 
   const init = async () => {
     if (value && isValidUrl(value)) {
@@ -72,6 +73,10 @@ function Link(props) {
     };
 
     render();
+
+    const children = currentRef.current.getBoundingClientRect();
+    props.setChildrenWidth(children.width);
+    props.setChildrenHeight(children.height);
   }, [props.content.attribute]);
 
   const handleFocus = async () => {
@@ -147,6 +152,7 @@ function Link(props) {
       <div
         className={`contain-card Link ${isFocus && `card-text-focus`}`}
         onClick={handleOnClick}
+        ref={currentRef}
       >
         {!renderUrl && (
           <>

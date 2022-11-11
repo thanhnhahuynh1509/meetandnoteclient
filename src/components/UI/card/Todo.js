@@ -21,6 +21,7 @@ function Todo(props) {
   const [value, setValue] = useState([]);
   const lastInputTodoRef = useRef(null);
   const { roomId } = useParams();
+  const currentRef = useRef();
 
   const init = async () => {
     setValue(props.content.attribute.todos);
@@ -29,10 +30,9 @@ function Todo(props) {
 
   useEffect(() => {
     init();
-  }, []);
-
-  useEffect(() => {
-    init();
+    const children = currentRef.current.getBoundingClientRect();
+    props.setChildrenWidth(children.width);
+    props.setChildrenHeight(children.height);
   }, [props.content]);
 
   const handleFocus = () => {
@@ -124,6 +124,7 @@ function Todo(props) {
       <div
         className={`contain-card ${isFocus && `card-text-focus`}`}
         onClick={(e) => e.stopPropagation()}
+        ref={currentRef}
       >
         <div className="Todo-container">
           {value.map((m) => {

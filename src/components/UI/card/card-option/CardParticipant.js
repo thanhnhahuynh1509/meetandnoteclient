@@ -10,12 +10,14 @@ import { useSelector } from "react-redux";
 import { selectCurrentRoom } from "../../../../store/room-slice";
 import { send } from "../../../../utils/sockjs/client-sockjs";
 import { useParams } from "react-router-dom";
+import { selectTrigger } from "../../../../store/utils-slice";
 
 function CardParticipant(props) {
   const [participants, setParticipants] = useState([]);
   const currentRoom = useSelector(selectCurrentRoom);
   const user = JSON.parse(localStorage.getItem("user"));
   const { roomId } = useParams();
+  const trigger = useSelector(selectTrigger);
 
   useEffect(() => {
     const init = async () => {
@@ -24,7 +26,7 @@ function CardParticipant(props) {
     };
 
     init();
-  }, []);
+  }, [trigger]);
 
   const handleOnChange = async (userId) => {
     const response = await updateUserPermission(userId, currentRoom.id);

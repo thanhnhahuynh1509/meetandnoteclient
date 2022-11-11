@@ -141,6 +141,24 @@ img {
   cursor: grabbing;
 }
 
+.ql-toolbar {
+  background-color: #fff;
+  border-radius: 4px;
+  border: none !important;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px !important;
+}
+
+.ql-container {
+  margin-top: 10px !important;
+  border-radius: 4px;
+  border: none !important;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  min-height: 100px !important;
+  max-width: 600px !important;
+}
+
 .waiting {
   width: 22px;
   height: 22px;

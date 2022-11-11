@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 import { getRoomByOwner, getRoomsByUserId } from "../../../../api/room-api";
 import { useSelector } from "react-redux";
 import { selectComponents } from "../../../../store/component-slice";
+import { selectCurrentRoom } from "../../../../store/room-slice";
+import { leaveRoom } from "../../../../api/room-api";
+import { send } from "../../../../utils/sockjs/client-sockjs";
 
 function CardRoom(props) {
   const user = JSON.parse(localStorage.getItem("user"));
   const [rooms, setRooms] = useState([]);
   const components = useSelector(selectComponents);
+  const currentRoom = useSelector(selectCurrentRoom);
 
   const init = async () => {
     const response = await getRoomsByUserId(user.id);
@@ -27,6 +31,20 @@ function CardRoom(props) {
   useEffect(() => {
     init();
   }, [components]);
+
+  const handleLeaveRoom = async (e, roomId) => {
+    e.preventDefault();
+    const response = await leaveRoom(roomId, user.id);
+    if (response === "OK") {
+      if (roomId === currentRoom.id) {
+        window.location.href = "/" + user.roomLink;
+      }
+      init();
+      send(currentRoom.link, { command: "TRIGGER" });
+    } else {
+      alert("Something wrong");
+    }
+  };
 
   return (
     <>
@@ -55,7 +73,7 @@ function CardRoom(props) {
                   {m.owner.id !== user.id && (
                     <a
                       style={{ fontSize: "12px", color: "red" }}
-                      href={"/" + m.link}
+                      onClick={(e) => handleLeaveRoom(e, m.id)}
                     >
                       Leave
                     </a>

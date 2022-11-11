@@ -115,7 +115,7 @@ function Header(props) {
                   />
                   <Tooltip>Phòng họp</Tooltip>
                 </div>
-                <button
+                {/* <button
                   className="Header-button button-transparent tooltip-parent"
                   onClick={setOpenNotification}
                 >
@@ -128,7 +128,7 @@ function Header(props) {
                     }}
                   />
                   <Tooltip>Thông báo</Tooltip>
-                </button>
+                </button> */}
                 <div
                   className="Header-button button-transparent tooltip-parent"
                   onClick={() => setOpenUser(true)}

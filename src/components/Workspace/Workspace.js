@@ -18,6 +18,7 @@ import { updateCurrentRoom } from "../../store/room-slice";
 import { updateChat } from "../../store/chat-slice";
 import { getUserByRoomAndUserId } from "../../api/users-api";
 import { selectUser, updateUser } from "../../store/user-slice";
+import { selectTrigger, setTrigger } from "../../store/utils-slice";
 
 function Workspace(props) {
   const { roomId } = useParams();
@@ -25,6 +26,8 @@ function Workspace(props) {
   const components = useSelector(selectComponents);
   const userTrigger = useSelector(selectUser);
   const dispatch = useDispatch();
+  const trigger = useSelector(selectTrigger);
+
   const addComponentSockJS = (component) => {
     const command = component.command;
     delete component.command;
@@ -36,12 +39,13 @@ function Workspace(props) {
     } else if (command === "CHAT") {
       dispatch(updateChat(component));
     } else if (command === "PERMISSION") {
-      console.log(component);
       if (user.id === component.userId) {
         user = { ...user, fullPermission: !user.fullPermission };
         localStorage.setItem("user", JSON.stringify({ ...user }));
         dispatch(addComponent(null));
       }
+    } else if (command === "TRIGGER") {
+      dispatch(setTrigger({ ...trigger }));
     }
   };
 

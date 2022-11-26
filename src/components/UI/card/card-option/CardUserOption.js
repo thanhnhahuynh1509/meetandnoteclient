@@ -73,10 +73,10 @@ function CardUserOption(props) {
                   className="button-transparent"
                   onClick={openModalAccount}
                 >
-                  Account settings
+                  Cài đặt
                 </button>
                 <button className="button-transparent" onClick={logout}>
-                  Log out
+                  Đăng xuất
                 </button>
               </div>
             </div>
@@ -87,7 +87,7 @@ function CardUserOption(props) {
                 alt=""
               />
               <button className="button-transparent" onClick={openFileChooser}>
-                Change
+                Thay đổi
               </button>
               <input
                 ref={hiddenImageFile}

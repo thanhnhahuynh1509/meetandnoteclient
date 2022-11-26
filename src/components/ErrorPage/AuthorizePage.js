@@ -5,10 +5,10 @@ function AuthorizePage(props) {
 
   return (
     <div className="AuthorizePage">
-      <h1>Error!</h1>
-      <p>You not have any permission in this room</p>
-      <a href="/">Home</a>
-      <a href={"/" + user.roomLink}>Turn back your room</a>
+      <h1>Lỗi!</h1>
+      <p>Bạn không có quyền để vào phòng</p>
+      <a href="/">Trang chủ</a>
+      <a href={"/" + user.roomLink}>Quay lại phòng của bạn</a>
     </div>
   );
 }

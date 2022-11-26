@@ -25,13 +25,13 @@ function ModalAccountSetting(props) {
     <>
       <ModalWorkspace {...props} className="ModalAccountSetting" width="400px">
         <div className="ModalAccountSetting-container">
-          <h4 className="title">Account Setting</h4>
+          <h4 className="title">Cài đặt tài khoản</h4>
           <p className="description"></p>
 
           <form action="" onSubmit={handleSubmit}>
             <div className="contain-form-group">
               <div className="contain-form">
-                <p className="title">Ho</p>
+                <p className="title">Họ</p>
                 <div className="form-button">
                   <input
                     value={lastName}
@@ -44,7 +44,7 @@ function ModalAccountSetting(props) {
               </div>
 
               <div className="contain-form">
-                <p className="title">Ten</p>
+                <p className="title">Tên</p>
                 <div className="form-button">
                   <input
                     value={firstName}
@@ -57,11 +57,11 @@ function ModalAccountSetting(props) {
               </div>
             </div>
 
-            <button className="button button-submit">Luu</button>
+            <button className="button button-submit">Lưu</button>
           </form>
 
           <div className="contain-form">
-            <p className="title">Mat khau</p>
+            <p className="title">Mật khẩu</p>
             <div className="form-button">
               <input
                 defaultValue={"*************"}
@@ -69,7 +69,7 @@ function ModalAccountSetting(props) {
                 placeholder=""
                 disabled={true}
               />
-              <button className="bg-red button">Reset</button>
+              <button className="bg-red button">Thay đổi</button>
             </div>
           </div>
         </div>

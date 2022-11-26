@@ -36,13 +36,13 @@ function ModalInvite(props) {
     <>
       <ModalWorkspace {...props} className="ModalInvite" width="400px">
         <div className="ModalInvite-container">
-          <h4 className="title">Thêm thành viên</h4>
+          <h4 className="title">Mời thành viên</h4>
           <p className="description">
-            Bạn có thể thêm thành viên mới và phân quyền cho họ.
+            Bạn có thể mời thành viên mới vào phòng.
           </p>
 
           <div className="contain-form">
-            <p className="title">Mời thành viên qua email (Read-only)</p>
+            <p className="title">Mời thành viên qua email (Chỉ đọc)</p>
             <div className="form-button">
               <input
                 type="text"
@@ -56,13 +56,13 @@ function ModalInvite(props) {
                   handleOnSend(emailReadOnly, "READ", setEmailReadOnly)
                 }
               >
-                Send
+                Mời
               </button>
             </div>
           </div>
 
           <div className="contain-form">
-            <p className="title">Mời thành viên qua email (Full permission)</p>
+            <p className="title">Mời thành viên qua email (Toàn quyền)</p>
             <div className="form-button">
               <input
                 type="text"
@@ -80,7 +80,7 @@ function ModalInvite(props) {
                   )
                 }
               >
-                Send
+                Mời
               </button>
             </div>
           </div>

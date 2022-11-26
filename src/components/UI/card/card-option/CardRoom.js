@@ -68,14 +68,14 @@ function CardRoom(props) {
                 </div>
                 <div className="room-bar-header-time">
                   <a style={{ fontSize: "12px" }} href={"/" + m.link}>
-                    Enter room
+                    Vào phòng
                   </a>
                   {m.owner.id !== user.id && (
                     <a
                       style={{ fontSize: "12px", color: "red" }}
                       onClick={(e) => handleLeaveRoom(e, m.id)}
                     >
-                      Leave
+                      Rời
                     </a>
                   )}
                 </div>

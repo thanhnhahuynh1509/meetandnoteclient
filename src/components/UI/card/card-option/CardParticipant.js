@@ -60,7 +60,7 @@ function CardParticipant(props) {
                         defaultChecked={m.fullPermission}
                         onChange={() => handleOnChange(m.id)}
                       />{" "}
-                      <label htmlFor={m.id}>Full</label>
+                      <label htmlFor={m.id}>Toàn quyền</label>
                     </>
                   )}
                 </div>

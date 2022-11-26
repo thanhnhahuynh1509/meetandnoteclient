@@ -5,10 +5,10 @@ function RoomNotExists(props) {
 
   return (
     <div className="AuthorizePage">
-      <h1>Error!</h1>
-      <p>The room is not exist</p>
-      <a href="/">Home</a>
-      <a href={"/" + user.roomLink}>Turn back your room</a>
+      <h1>Lỗi!</h1>
+      <p>Phòng không tồn tại</p>
+      <a href="/">Trang chủ</a>
+      <a href={"/" + user.roomLink}>Quay lại phòng của bạn</a>
     </div>
   );
 }

@@ -159,7 +159,7 @@ function Header(props) {
                         className="button bg-black-blue"
                         onClick={() => openModalShare()}
                       >
-                        Share
+                        Mời
                       </button>
                     )}
 
